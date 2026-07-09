@@ -1,0 +1,2412 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maweni Hornets Basketball</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #111111;
+    --deep: #000000;
+    --orange: #CC0000;
+    --orange-light: #FF2222;
+    --chalk: #FFFFFF;
+    --steel: #AAAAAA;
+    --mid: #1E1E1E;
+    --card: #1A1A1A;
+    --border: rgba(204,0,0,0.35);
+  }
+
+  .site { font-family: 'Inter', sans-serif; background: var(--navy); color: var(--chalk); min-height: 100vh; overflow-x: hidden; }
+  html { scroll-behavior: smooth; }
+  body { overflow-x: hidden; }
+
+  /* NAV */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 28px; background: var(--deep); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--chalk); display: flex; align-items: center; gap: 10px; }
+  .logo-ball { width: 32px; height: 32px; background: var(--orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-link { font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--steel); cursor: pointer; transition: color 0.2s; padding: 4px 0; border-bottom: 2px solid transparent; }
+  .nav-link:hover, .nav-link.active { color: var(--chalk); border-color: var(--orange); }
+  .nav-search { background: var(--mid); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; display: flex; align-items: center; gap: 8px; position: relative; }
+  .nav-search input { background: none; border: none; outline: none; font-size: 13px; color: var(--chalk); width: 120px; font-family: 'Inter', sans-serif; }
+  .nav-search input::placeholder { color: var(--steel); }
+  .search-results { position: absolute; top: calc(100% + 10px); right: 0; width: 280px; max-height: 360px; overflow-y: auto; background: var(--card); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); display: none; z-index: 500; }
+  .search-results.open { display: block; }
+  .search-result-group-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--steel); padding: 10px 14px 4px; }
+  .search-result-item { padding: 9px 14px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; border-top: 1px solid var(--border); }
+  .search-result-item:first-of-type { border-top: none; }
+  .search-result-item:hover { background: var(--mid); }
+  .search-result-title { font-size: 13px; font-weight: 600; color: var(--chalk); }
+  .search-result-sub { font-size: 11px; color: var(--steel); }
+  .search-result-empty { padding: 18px 14px; font-size: 12px; color: var(--steel); text-align: center; }
+
+  /* PAGE SECTIONS */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero { position: relative; background: var(--deep); overflow: hidden; padding: 60px 28px 48px; }
+  .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(204,0,0,0.12) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; }
+  .hero-accent { position: absolute; top: -80px; right: -80px; width: 360px; height: 360px; border-radius: 50%; border: 60px solid rgba(204,0,0,0.06); pointer-events: none; }
+  .hero-content { position: relative; max-width: 560px; }
+  .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 64px; line-height: 0.95; letter-spacing: 2px; color: var(--chalk); margin-bottom: 16px; }
+  .hero-title span { color: var(--orange); }
+  .hero-desc { font-size: 15px; color: var(--steel); line-height: 1.6; margin-bottom: 28px; max-width: 420px; }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary { background: var(--orange); color: white; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 11px 24px; border-radius: 4px; border: none; cursor: pointer; transition: background 0.2s; }
+  .btn-primary:hover { background: var(--orange-light); }
+  .btn-ghost { background: none; color: var(--chalk); font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 11px 24px; border-radius: 4px; border: 1px solid rgba(245,245,240,0.25); cursor: pointer; transition: border-color 0.2s; }
+  .btn-ghost:hover { border-color: var(--chalk); }
+
+  /* FEATURED GAME */
+  .featured-game { margin: 32px 28px 0; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; display: flex; align-items: center; gap: 24px; }
+  .team-score { display: flex; align-items: center; gap: 14px; flex: 1; }
+  .team-abbr { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; }
+  .team-score-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--chalk); }
+  .score-divider { text-align: center; flex: 0 0 80px; }
+  .score-live { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--orange); text-transform: uppercase; }
+  .score-quarter { font-size: 12px; color: var(--steel); margin-top: 4px; }
+  .team-b { justify-content: flex-end; }
+
+  /* GAMES */
+  .games-list { display: flex; flex-direction: column; gap: 10px; }
+  .game-row { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; }
+  .game-teams { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; }
+  .game-vs { font-size: 11px; color: var(--steel); }
+  .game-info { font-size: 12px; color: var(--steel); text-align: right; }
+  .game-date { font-weight: 600; color: var(--chalk); }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; }
+  .badge-win { background: rgba(39,122,39,0.2); color: #5cb85c; }
+  .badge-loss { background: rgba(163,45,45,0.2); color: #e25555; }
+  .badge-upcoming { background: rgba(204,0,0,0.18); color: var(--orange-light); }
+  .badge-live { background: var(--orange); color: white; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+
+  /* STANDINGS */
+  .standings-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+ .standings-table th {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: #000000;
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+  .standings-table td { padding: 10px 12px; border-bottom: 1px solid rgba(138,155,176,0.1); }
+  .standings-table tr:hover td { background: rgba(255,255,255,0.03); }
+  .standings-table .highlight td { color: var(--orange); font-weight: 600; }
+  .rank { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--steel); }
+  .player-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+  .player-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; text-align: center; transition: border-color 0.2s, transform 0.2s; }
+  .player-card:hover { border-color: var(--orange); transform: translateY(-2px); }
+  .player-avatar { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: #fff; overflow: hidden; }
+  .player-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .admin-photo-row { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .admin-photo-thumb { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); flex-shrink: 0; background: var(--bg); }
+  .admin-photo-placeholder { width: 56px; height: 56px; border-radius: 50%; border: 1px dashed var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--steel); background: var(--bg); }
+  .admin-photo-controls { display: flex; flex-direction: column; gap: 6px; }
+  .admin-photo-controls input[type="file"] { font-size: 11px; color: var(--steel); max-width: 220px; }
+  .admin-photo-remove { background: none; border: none; color: #e25555; font-size: 11px; text-decoration: underline; cursor: pointer; padding: 0; text-align: left; }
+  .player-card-name { font-weight: 700; font-size: 15px; color: var(--chalk); margin-bottom: 4px; }
+  .player-card-pos { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--steel); margin-bottom: 8px; }
+  .player-card-num { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; color: var(--orange); }
+
+ 
+  /* STORE */
+  .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+  .store-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; text-align: center; cursor: pointer; transition: border-color 0.2s; }
+  .store-card:hover { border-color: var(--orange); }
+  .store-img { font-size: 36px; margin-bottom: 10px; }
+  .store-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .store-price { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--orange); }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .contact-form { display: flex; flex-direction: column; gap: 10px; }
+  .contact-form input, .contact-form textarea, .contact-form select { background: var(--mid); border: 1px solid var(--border); border-radius: 4px; padding: 10px 14px; font-size: 13px; color: var(--chalk); font-family: 'Inter', sans-serif; outline: none; }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--steel); }
+  .contact-form textarea { min-height: 100px; resize: vertical; }
+  .contact-info { display: flex; flex-direction: column; gap: 14px; }
+  .contact-item { display: flex; gap: 12px; align-items: flex-start; }
+  .contact-icon { width: 36px; height: 36px; background: rgba(204,0,0,0.18); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--orange); font-size: 16px; flex-shrink: 0; }
+  .contact-label { font-size: 11px; color: var(--steel); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+  .contact-val { font-size: 13px; font-weight: 600; }
+
+  /* TRAINING */
+  .training-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .training-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 18px; }
+  .training-icon { font-size: 28px; margin-bottom: 10px; }
+  .training-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .training-desc { font-size: 12px; color: var(--steel); line-height: 1.5; }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 0 28px; }
+
+  /* GALLERY */
+  .gallery-filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+  .gal-filter { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:6px 14px; border-radius:4px; border:1px solid var(--border); color:var(--steel); background:none; cursor:pointer; transition:all 0.2s; }
+  .gal-filter:hover, .gal-filter.active { background:var(--orange); border-color:var(--orange); color:white; }
+  .gallery-grid { columns:2; gap:12px; }
+  @media (min-width:600px) { .gallery-grid { columns:3; } }
+  @media (min-width:900px) { .gallery-grid { columns:4; } }
+  .gal-item { break-inside:avoid; margin-bottom:12px; border-radius:8px; overflow:hidden; position:relative; cursor:pointer; border:1px solid var(--border); }
+  .gal-item img { width:100%; display:block; transition:transform 0.3s; }
+  .gal-item:hover img { transform:scale(1.04); }
+  .gal-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 50%); opacity:0; transition:opacity 0.3s; display:flex; align-items:flex-end; padding:10px 12px; }
+  .gal-item:hover .gal-overlay { opacity:1; }
+  .gal-caption { font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:white; }
+  .gal-empty { text-align:center; padding:60px 20px; color:var(--steel); font-size:14px; }
+  .gal-empty-icon { font-size:48px; margin-bottom:12px; }
+
+  /* LIGHTBOX */
+  #lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:2000; align-items:center; justify-content:center; flex-direction:column; }
+  #lightbox.open { display:flex; }
+  #lightbox img { max-width:92vw; max-height:82vh; object-fit:contain; border-radius:6px; }
+  #lightbox-caption { margin-top:14px; font-size:13px; color:var(--steel); letter-spacing:1px; text-transform:uppercase; }
+  #lightbox-close { position:absolute; top:16px; right:20px; background:none; border:none; color:white; font-size:28px; cursor:pointer; z-index:2001; line-height:1; }
+  #lightbox-prev, #lightbox-next { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:white; font-size:22px; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
+  #lightbox-prev:hover, #lightbox-next:hover { background:var(--orange); border-color:var(--orange); }
+  #lightbox-prev { left:16px; }
+  #lightbox-next { right:16px; }
+
+  /* FOOTER */
+  footer { background: var(--deep); border-top: 1px solid var(--border); padding: 28px; text-align: center; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; color: var(--orange); margin-bottom: 8px; }
+  .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+  .footer-link { font-size: 11px; color: var(--steel); cursor: pointer; letter-spacing: 1px; text-transform: uppercase; }
+  .footer-copy { font-size: 11px; color: rgba(138,155,176,0.5); }
+
+  /* =============================================
+     RESPONSIVE — HAMBURGER MENU
+  ============================================= */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+    z-index: 200;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--chalk);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--deep);
+    z-index: 150;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding-top: 70px;
+  }
+  .nav-mobile-menu.open { display: flex; }
+  .nav-mobile-link {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 3px;
+    color: var(--steel);
+    padding: 14px 0;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(204,0,0,0.15);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .nav-mobile-link:hover, .nav-mobile-link.active { color: var(--chalk); }
+  .nav-mobile-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--chalk);
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 160;
+  }
+
+  /* =============================================
+     SECTION BASE
+  ============================================= */
+  .section { padding: 28px; }
+
+  /* =============================================
+     DESKTOP (>= 1024px)
+  ============================================= */
+  @media (min-width: 1024px) {
+    .hero { padding: 72px 48px 60px; }
+    .hero-title { font-size: 72px; }
+    .section { padding: 32px 48px; }
+    .divider { margin: 0 48px; }
+    .featured-game { margin: 32px 48px 0; }
+    nav { padding: 16px 48px; }
+    .store-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .admin-panel { padding: 28px 48px; }
+  }
+
+  /* =============================================
+     TABLET (600px – 1023px)
+  ============================================= */
+  @media (min-width: 600px) and (max-width: 1023px) {
+    .hero-title { font-size: 56px; }
+    .hero { padding: 52px 32px 40px; }
+    .section { padding: 24px 32px; }
+    .divider { margin: 0 32px; }
+    .featured-game { margin: 28px 32px 0; }
+    nav { padding: 14px 24px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .store-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+    .admin-panel { padding: 20px 32px; }
+  }
+
+  /* =============================================
+     MOBILE (< 600px)
+  ============================================= */
+  @media (max-width: 599px) {
+    nav { padding: 12px 16px; }
+    .nav-links { display: none; }
+    .nav-search { display: none; }
+    .nav-hamburger { display: flex; }
+    .nav-logo { font-size: 17px; letter-spacing: 2px; }
+    .nav-logo img { width: 32px; height: 32px; }
+
+    .hero { padding: 36px 16px 32px; }
+    .hero-title { font-size: 44px; line-height: 1; }
+    .hero-eyebrow { font-size: 10px; }
+    .hero-desc { font-size: 14px; }
+    .hero-btns { flex-direction: column; gap: 10px; }
+    .hero-btns .btn-primary,
+    .hero-btns .btn-ghost { width: 100%; text-align: center; }
+    .hero-accent { width: 220px; height: 220px; right: -60px; top: -40px; }
+
+    .featured-game { margin: 16px 16px 0; padding: 14px 16px; gap: 12px; flex-wrap: wrap; }
+    .team-abbr { font-size: 20px; }
+    .team-score-num { font-size: 36px; }
+    .score-divider { flex: 0 0 60px; }
+
+    .section { padding: 20px 16px; }
+    .divider { margin: 0 16px; }
+
+    .game-row { padding: 12px 14px; flex-wrap: wrap; gap: 6px; }
+    .game-teams { font-size: 13px; }
+    .game-info { text-align: left; }
+
+    .standings-table { font-size: 12px; }
+    .standings-table th, .standings-table td { padding: 8px 8px; }
+
+    .store-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .store-card { padding: 12px; }
+    .store-name { font-size: 12px; }
+    .store-price { font-size: 18px; }
+
+    .contact-grid { grid-template-columns: 1fr; gap: 24px; }
+    .training-grid { grid-template-columns: 1fr; }
+
+    .gallery-grid { columns: 2; }
+    .gallery-filters { gap: 6px; }
+    .gal-filter { font-size: 10px; padding: 5px 10px; }
+
+    .admin-panel { padding: 16px; }
+    .admin-row { grid-template-columns: 1fr; }
+    .admin-tabs { gap: 6px; }
+    .admin-tab { font-size: 11px; padding: 6px 10px; }
+
+    footer { padding: 20px 16px; }
+    .footer-links { gap: 14px; }
+
+    .section-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+
+    #lightbox-prev { left: 6px; }
+    #lightbox-next { right: 6px; }
+
+    .toast { left: 16px; right: 16px; bottom: 16px; text-align: center; }
+  }
+
+  @media (max-width: 360px) {
+    .hero-title { font-size: 36px; }
+    .store-grid { grid-template-columns: 1fr; }
+    .team-score-num { font-size: 28px; }
+  }
+
+  /* STORE MODAL */
+  .size-btn { background: var(--mid); border: 1px solid var(--border); color: var(--chalk); padding: 6px 14px; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .size-btn:hover, .size-btn.selected { background: var(--orange); border-color: var(--orange); color: white; }
+  .store-card img { transition: transform 0.2s; }
+  .store-card:hover img { transform: scale(1.03); }
+  #store-grid { transition: all 0.2s; }
+  .store-card.hidden { display: none; }
+
+
+  /* ADMIN */
+  .admin-login { min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--deep); }
+  .admin-login-box { background:var(--card);border:1px solid var(--border);border-radius:12px;padding:36px;width:100%;max-width:360px;text-align:center; }
+  .admin-panel { padding:24px 28px; }
+  .admin-tabs { display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:16px; }
+  .admin-tab { padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:1px solid var(--border);color:var(--steel);background:none;transition:all 0.2s; }
+  .admin-tab.active,.admin-tab:hover { background:var(--orange);border-color:var(--orange);color:white; }
+  .admin-section { display:none; }
+  .admin-section.active { display:block; }
+  .admin-field { margin-bottom:14px; }
+  .admin-label { font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--steel);margin-bottom:6px; }
+  .admin-input { width:100%;background:var(--mid);border:1px solid var(--border);border-radius:4px;padding:10px 14px;font-size:13px;color:var(--chalk);font-family:'Inter',sans-serif;outline:none; }
+  .admin-input:focus { border-color:var(--orange); }
+  .admin-row { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+  .admin-card { background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px; }
+  .admin-card-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:10px; }
+  .admin-card-title { font-weight:700;font-size:14px; }
+  .btn-danger { background:rgba(163,45,45,0.2);color:#e25555;border:1px solid rgba(163,45,45,0.4);padding:6px 12px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px; }
+  .btn-success { background:rgba(39,122,39,0.2);color:#5cb85c;border:1px solid rgba(39,122,39,0.4);padding:6px 12px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px; }
+  .admin-save-bar { position:sticky;bottom:0;background:var(--deep);border-top:1px solid var(--border);padding:14px 0;display:flex;gap:10px;align-items:center;margin-top:24px; }
+  .toast { position:fixed;bottom:24px;right:24px;background:#00a550;color:white;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;display:none;animation:fadeIn 0.3s; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+</style>
+
+<div class="site">
+
+  <nav>
+    <div class="nav-logo">
+    <img src="Maweni hornets logo.jpg"
+     alt="Maweni hornets logo"
+     style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+        MAWENI HORNETS
+    </div>
+    <div class="nav-links">
+      <div class="nav-link active" onclick="showPage('home')">Home</div>
+      <div class="nav-link" onclick="showPage('schedule')">Schedule</div>
+      <div class="nav-link" onclick="showPage('teams')">Teams</div>
+      <div class="nav-link" onclick="showPage('players')">Players</div>
+      <div class="nav-link" onclick="showPage('store')">Store</div>
+      <div class="nav-link" onclick="showPage('gallery')">Gallery</div>
+      <div class="nav-link" onclick="showPage('contact')">Contact</div>
+    </div>
+    <div class="nav-search">
+      <i class="ti ti-search" aria-hidden="true" style="font-size:14px; color:var(--steel);"></i>
+      <input type="text" id="site-search-input" placeholder="Search players, games…" oninput="performSiteSearch(this.value)" onkeydown="handleSearchKeydown(event)" onfocus="if(this.value)performSiteSearch(this.value)">
+      <div class="search-results" id="site-search-results"></div>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU OVERLAY -->
+  <div class="nav-mobile-menu" id="nav-mobile-menu">
+    <button class="nav-mobile-close" onclick="toggleMobileMenu()">&#x2715;</button>
+    <div class="nav-mobile-link active" onclick="mobileNav('home')">Home</div>
+    <div class="nav-mobile-link" onclick="mobileNav('schedule')">Schedule</div>
+    <div class="nav-mobile-link" onclick="mobileNav('teams')">Teams</div>
+    <div class="nav-mobile-link" onclick="mobileNav('players')">Players</div>
+    <div class="nav-mobile-link" onclick="mobileNav('store')">Store</div>
+    <div class="nav-mobile-link" onclick="mobileNav('gallery')">Gallery</div>
+    <div class="nav-mobile-link" onclick="mobileNav('contact')">Contact</div>
+  </div>
+
+  <!-- HOME PAGE -->
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-dots"></div>
+      <div class="hero-accent"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">2025 – 26 Season · Mombasa Basketball League</div>
+        <div class="hero-title">MAWENI<br><span>HORNETS</span><br>BASKETBALL</div>
+        <div class="hero-desc">Mombasa's finest. Built on grit, speed, and community — the Hornets are hunting a championship title this season.</div>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="showPage('schedule')">View Schedule</button>
+          <button class="btn-primary" onclick="showPage('teams')">Meet the Team</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="featured-game" id="liveGame">
+      <div class="team-score">
+        <div class="team-abbr" style="color:var(--orange)" id="live-home-display">MHB</div>
+        <div class="team-score-num" id="score1">112</div>
+      </div>
+      <div class="score-divider">
+        <div class="badge badge-live" id="live-badge-display">FINAL</div>
+        <div class="score-quarter" style="margin-top:6px" id="live-period-display">4th Quarter</div>
+      </div>
+      <div class="team-score team-b">
+        <div class="team-score-num" id="score2">98</div>
+        <div class="team-abbr" style="color:var(--steel)" id="live-away-display">NRB</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Latest Headlines</div>
+      </div>
+      <div class="news-grid">
+        <div class="news-card" id="home-recap-card" onclick="showPage('news')">
+          <div class="news-img">🏀</div>
+          <div class="news-body">
+            <div class="news-cat" id="home-news-cat">Game Recap</div>
+            <div class="news-title" id="home-news-title">Hornets blow past Nairobi Rangers in dominant 112–98 victory</div>
+            <div class="news-date" id="home-recap-date">Today · 3 min read</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Upcoming Games</div>
+      </div>
+      <div id="home-upcoming-games">
+        <!-- Rendered dynamically by JS -->
+        <div class="game-row">
+          <div class="game-teams">Maweni Hornets <span class="game-vs">vs</span> Nairobi Hawks</div>
+          <div class="game-info"><div class="game-date">Sat, Jun 28</div><div style="margin-top:2px"><span class="badge badge-upcoming">Upcoming</span></div></div>
+        </div>
+        <div class="game-row">
+          <div class="game-teams">Maweni Hornets <span class="game-vs">vs</span> Mombasa Lions</div>
+          <div class="game-info"><div class="game-date">Wed, Jul 2</div><div style="margin-top:2px"><span class="badge badge-upcoming">Away</span></div></div>
+        </div>
+        <div class="game-row">
+          <div class="game-teams">Kisumu Thunder <span class="game-vs">vs</span> Maweni Hornets</div>
+          <div class="game-info"><div class="game-date">Sat, Jul 5</div><div style="margin-top:2px"><span class="badge badge-upcoming">Away</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCHEDULE PAGE -->
+  <div class="page" id="page-schedule">
+    <div class="section">
+      <div class="section-header"><div class="section-title">Schedule & Results</div></div>
+      <div class="games-list">
+        <div class="game-row">
+          <div><div class="game-teams">Hornets vs Rangers</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Nyayo Stadium, Nairobi</div></div>
+          <div class="game-info"><div class="game-date">Jun 22</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
+        </div>
+        <div class="game-row">
+          <div><div class="game-teams">Hornets vs Nakuru Stallions</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Nyayo Stadium, Nairobi</div></div>
+          <div class="game-info"><div class="game-date">Jun 15</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
+        </div>
+        <div class="game-row">
+          <div><div class="game-teams">Eldoret Raptors vs Hornets</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Moi Sports Centre, Eldoret</div></div>
+          <div class="game-info"><div class="game-date">Jun 8</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
+        </div>
+        <div class="game-row" style="border-color:var(--orange)">
+          <div><div class="game-teams" style="color:var(--orange)">Hornets vs Nairobi Hawks</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Nyayo Stadium, Nairobi · 7:00 PM</div></div>
+          <div class="game-info"><div class="game-date">Jun 28</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
+        </div>
+        <div class="game-row">
+          <div><div class="game-teams">Hornets vs Mombasa Lions</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Away · Mombasa Sports Club</div></div>
+          <div class="game-info"><div class="game-date">Jul 2</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
+        </div>
+        <div class="game-row">
+          <div><div class="game-teams">Kisumu Thunder vs Hornets</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Away · Kisumu Arena</div></div>
+          <div class="game-info"><div class="game-date">Jul 5</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
+        </div>
+        <div class="game-row">
+          <div><div class="game-teams">Hornets vs Thika Cobras</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Nyayo Stadium, Nairobi · 6:30 PM</div></div>
+          <div class="game-info"><div class="game-date">Jul 12</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAMS PAGE -->
+  <div class="page" id="page-teams">
+    <div class="section">
+      <div class="section-header"><div class="section-title">Teams & Roster</div></div>
+      <div class="news-card" style="display:flex;align-items:center;gap:20px;padding:20px;margin-bottom:20px;background:var(--card);border:1px solid var(--border);border-radius:8px;">
+      <div>
+<img src="Maweni hornets logo.jpg"
+     alt="Maweni hornets logo"
+     style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+ </div> 
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--orange)">Maweni Hornets</div>
+          <div style="font-size:13px;color:var(--steel);margin-top:4px">Mombasa, Kenya · Founded 2006 · Mombasa Basketball League</div>
+          <div style="display:flex;gap:10px;margin-top:10px">
+                      </div>
+        </div>
+      </div>
+      <div class="section-header"><div class="section-title" style="font-size:18px">Coaching Staff</div></div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+        <div class="game-row"><div><div style="font-weight:600">Coach Paul Mukhwana</div><div style="font-size:12px;color:var(--orange);margin-top:2px">Head Coach</div></div><span class="badge badge-upcoming">Head Coach</span></div>
+        <div class="game-row"><div><div style="font-weight:600">Cyrus Barongo</div><div style="font-size:12px;color:var(--orange);margin-top:2px">Assistant Coach</div></div><span class="badge" style="background:rgba(138,155,176,0.15);color:var(--orange)">Assistant</span></div>
+             </div>
+      <div class="section-header"><div class="section-title" style="font-size:18px">Full Roster</div></div>
+      <table class="standings-table">
+        <thead><tr><th>No.</th><th>Name</th><th>Position</th><th>Height</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="highlight"><td class="rank" style="color:var(--orange)">5</td><td style="color:var(--orange)">J. Tony</td><td style="color:var(--orange)">Power Forwad</td><td style="color:var(--orange)">5'9"</td><td><span class="badge badge-win">Active</span></td></tr>
+          <tr><td class="rank" style="color:var(--orange)">10</td><td style="color:var(--orange)">H. Greation</td><td style="color:var(--orange)">Point Guard</td><td style="color:var(--orange)">5'6"</td><td><span class="badge badge-win">Active</span></td></tr>
+          <tr><td class="rank" style="color:var(--orange)">1</td><td style="color:var(--orange)">T. Odhiambo</td><td style="color:var(--orange)">Shooting Guard</td><td style="color:var(--orange)">5'6"</td><td><span class="badge badge-win">Active</span></td></tr>
+          <tr><td class="rank" style="color:var(--orange)">2</td><td style="color:var(--orange)">C.Asan</td><td style="color:var(--orange)">Shooting Guard</td><td style="color:var(--orange)">5'4"</td><td><span class="badge badge-win">Active</span></td></tr>
+          <tr><td class="rank" style="color:var(--orange)">6</td><td style="color:var(--orange)">I. Ouma</td><td style="color:var(--orange)">Power Forward</td><td style="color:var(--orange)">5'9"</td><td><span class="badge badge-win">Active</span></td></tr>
+          <tr><td class="rank" style="color:var(--orange)">3</td><td style="color:var(--orange)">A. Dickens</td><td style="color:var(--orange)">Center</td><td style="color:var(--orange)">6'0"</td><td><span class="badge badge-win">Active</span></td></tr>
+           <tr><td class="rank" style="color:var(--orange)">7</td><td style="color:var(--orange)">W. Tunje</td><td style="color:var(--orange)">Shooting Guard</td><td style="color:var(--orange)">5'5"</td><td><span class="badge badge-win">Active</span></td></tr>
+            <tr><td class="rank" style="color:var(--orange)">8</td><td style="color:var(--orange)">A. Mbogo</td><td style="color:var(--orange)">Center</td><td style="color:var(--orange)">6'0"</td><td><span class="badge badge-win">Active</span></td></tr>
+             <tr><td class="rank" style="color:var(--orange)">9</td><td style="color:var(--orange)">B. Brivian</td><td style="color:var(--orange)">Center</td><td style="color:var(--orange)">6'0"</td><td><span class="badge badge-win">Active</span></td></tr>
+
+            </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PLAYERS PAGE -->
+  <div class="page" id="page-players">
+    <div class="section">
+      <div class="section-header"><div class="section-title">Players</div><div style="font-size:13px;color:var(--steel)">2024–25 Roster</div></div>
+      <div class="player-grid" id="players-grid"></div>
+    </div>
+  </div>
+
+ 
+   <!-- STORE PAGE -->
+  <div class="page" id="page-store">
+    <div class="section">
+      <div class="section-header"><div class="section-title">Merchandise Store</div><div style="font-size:13px;color:var(--steel)">Official Maweni Hornets Gear</div></div>
+
+      <!-- Category Tabs -->
+      <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;">
+        <button class="btn-primary" id="tab-all" onclick="filterStore('all')" style="padding:8px 18px;font-size:12px;">All Items</button>
+        <button class="btn-ghost" id="tab-tshirts" onclick="filterStore('tshirts')" style="padding:8px 18px;font-size:12px;">👕 T-Shirts</button>
+        <button class="btn-ghost" id="tab-caps" onclick="filterStore('caps')" style="padding:8px 18px;font-size:12px;">🧢 Caps</button>
+      </div>
+
+      <div class="store-grid" id="store-grid">
+        <!-- T-SHIRTS -->
+          <div class="store-card" data-cat="tshirts" onclick="openProduct('tshirt-white')">
+          <img src="White T-shirt.png" alt="White T-shirt" style="width:100%;border-radius:6px;margin-bottom:10px;object-fit:cover;">
+          <div class="store-name">Hornets T-Shirt — White</div>
+          <div style="font-size:11px;color:var(--steel);margin-bottom:6px;">Unisex · Sizes S–XXL</div>
+          <div class="store-price">KES 1,800</div>
+          <button class="btn-primary" style="margin-top:10px;width:100%;font-size:11px;padding:8px" onclick="event.stopPropagation();openProduct('tshirt-white')">Order Now</button>
+        </div>
+
+        <div class="store-card" data-cat="tshirts" onclick="openProduct('tshirt-black')">
+          <img src="Black T-shirt.png" alt="Black T-shirt" style="width:100%;border-radius:6px;margin-bottom:10px;object-fit:cover;">
+          <div class="store-name">Hornets T-Shirt — Black</div>
+          <div style="font-size:11px;color:var(--steel);margin-bottom:6px;">Unisex · Sizes S–XXL</div>
+          <div class="store-price">KES 1,800</div>
+          <button class="btn-primary" style="margin-top:10px;width:100%;font-size:11px;padding:8px" onclick="event.stopPropagation();openProduct('tshirt-black')">Order Now</button>
+        </div>
+
+        <!-- CAPS -->
+        <div class="store-card" data-cat="caps" onclick="openProduct('cap-white')">
+          <img src="White Cap.png" alt="White Cap" style="width:100%;border-radius:6px;margin-bottom:10px;object-fit:cover;">
+          <div class="store-name">Hornets Cap — White</div>
+          <div style="font-size:11px;color:var(--steel);margin-bottom:6px;">Adjustable · One Size</div>
+          <div class="store-price">KES 1,200</div>
+          <button class="btn-primary" style="margin-top:10px;width:100%;font-size:11px;padding:8px" onclick="event.stopPropagation();openProduct('cap-white')">Order Now</button>
+        </div>
+
+        <div class="store-card" data-cat="caps" onclick="openProduct('cap-black')">
+          <img src="Black Cap.png" alt="Black Cap" style="width:100%;border-radius:6px;margin-bottom:10px;object-fit:cover;">
+          <div class="store-name">Hornets Cap — Black</div>
+          <div style="font-size:11px;color:var(--steel);margin-bottom:6px;">Adjustable · One Size</div>
+          <div class="store-price">KES 1,200</div>
+          <button class="btn-primary" style="margin-top:10px;width:100%;font-size:11px;padding:8px" onclick="event.stopPropagation();openProduct('cap-black')">Order Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT MODAL -->
+  <div id="product-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;overflow-y:auto;padding:24px 16px;">
+    <div style="max-width:520px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="position:relative;">
+        <img id="modal-img" src="" alt="" style="width:100%;max-height:340px;object-fit:cover;">
+        <button onclick="closeProduct()" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.7);border:none;color:white;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+      </div>
+      <div style="padding:22px;">
+        <div id="modal-name" style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--chalk);margin-bottom:4px;"></div>
+        <div id="modal-price" style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--orange);margin-bottom:16px;"></div>
+
+        <div id="modal-size-group" style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--steel);margin-bottom:8px;">Select Size</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="size-btn" onclick="selectSize(this)">S</button>
+            <button class="size-btn" onclick="selectSize(this)">M</button>
+            <button class="size-btn" onclick="selectSize(this)">L</button>
+            <button class="size-btn" onclick="selectSize(this)">XL</button>
+            <button class="size-btn" onclick="selectSize(this)">XXL</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--steel);margin-bottom:8px;">Quantity</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <button onclick="changeQty(-1)" style="background:var(--mid);border:1px solid var(--border);color:var(--chalk);width:32px;height:32px;border-radius:4px;font-size:18px;cursor:pointer;">−</button>
+            <span id="qty-display" style="font-size:18px;font-weight:700;min-width:24px;text-align:center;">1</span>
+            <button onclick="changeQty(1)" style="background:var(--mid);border:1px solid var(--border);color:var(--chalk);width:32px;height:32px;border-radius:4px;font-size:18px;cursor:pointer;">+</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--steel);margin-bottom:8px;">Your Name</div>
+          <input id="order-name" type="text" placeholder="Full name" style="width:100%;background:var(--mid);border:1px solid var(--border);border-radius:4px;padding:10px 14px;font-size:13px;color:var(--chalk);font-family:'Inter',sans-serif;outline:none;">
+        </div>
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--steel);margin-bottom:8px;">Phone / WhatsApp</div>
+          <input id="order-phone" type="tel" placeholder="+254 7XX XXX XXX" style="width:100%;background:var(--mid);border:1px solid var(--border);border-radius:4px;padding:10px 14px;font-size:13px;color:var(--chalk);font-family:'Inter',sans-serif;outline:none;">
+        </div>
+        <div style="margin-bottom:20px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--steel);margin-bottom:8px;">Delivery Address</div>
+          <textarea id="order-address" placeholder="Street, Town, County…" style="width:100%;background:var(--mid);border:1px solid var(--border);border-radius:4px;padding:10px 14px;font-size:13px;color:var(--chalk);font-family:'Inter',sans-serif;outline:none;min-height:70px;resize:vertical;"></textarea>
+        </div>
+
+        <div id="order-total" style="font-size:14px;color:var(--steel);margin-bottom:16px;"></div>
+
+        <button class="btn-primary" onclick="placeOrder()" style="width:100%;padding:13px;font-size:14px;">Pay via M-Pesa 📱</button>
+        <div style="font-size:11px;color:var(--steel);text-align:center;margin-top:10px;">You'll be shown M-Pesa payment instructions to complete your order</div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MPESA PAYMENT MODAL -->
+  <div id="mpesa-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1100;overflow-y:auto;padding:24px 16px;">
+    <div style="max-width:420px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <!-- Green M-Pesa header -->
+      <div style="background:#00a550;padding:20px 24px;text-align:center;position:relative;">
+        <button onclick="closeMpesa()" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.3);border:none;color:white;width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+        <div style="font-size:32px;margin-bottom:6px;">📱</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:white;">PAY VIA M-PESA</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.85);margin-top:4px;letter-spacing:1px;">Lipa Na M-Pesa · Till Number</div>
+      </div>
+
+      <div style="padding:24px;">
+        <!-- Amount to pay -->
+        <div style="background:rgba(0,165,80,0.08);border:1px solid rgba(0,165,80,0.3);border-radius:8px;padding:14px 18px;text-align:center;margin-bottom:20px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#00a550;margin-bottom:4px;">Amount to Pay</div>
+          <div id="mpesa-amount" style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--chalk);letter-spacing:2px;"></div>
+        </div>
+
+        <!-- Steps -->
+        <div style="margin-bottom:20px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--steel);margin-bottom:12px;">How to Pay</div>
+
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <div style="width:24px;height:24px;background:#00a550;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;">1</div>
+              <div style="font-size:13px;color:var(--chalk);line-height:1.4;">Open <strong>M-Pesa</strong> on your phone and select <strong>Lipa Na M-Pesa</strong></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <div style="width:24px;height:24px;background:#00a550;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;">2</div>
+              <div style="font-size:13px;color:var(--chalk);line-height:1.4;">Select <strong>Buy Goods & Services</strong></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <div style="width:24px;height:24px;background:#00a550;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;">3</div>
+              <div style="font-size:13px;line-height:1.4;">Enter Till Number: <span id="mpesa-till" style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#00a550;letter-spacing:3px;"></span></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <div style="width:24px;height:24px;background:#00a550;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;">4</div>
+              <div style="font-size:13px;color:var(--chalk);line-height:1.4;">Enter the amount shown above and complete payment</div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <div style="width:24px;height:24px;background:#00a550;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;">5</div>
+              <div style="font-size:13px;color:var(--chalk);line-height:1.4;">Once paid, tap the button below — you'll be sent to WhatsApp to share your <strong>M-Pesa confirmation code</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- M-Pesa code input -->
+        <div style="margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--steel);margin-bottom:8px;">M-Pesa Confirmation Code</div>
+          <input id="mpesa-code" type="text" placeholder="e.g. RGH7X4K2QP" style="width:100%;background:var(--mid);border:1px solid var(--border);border-radius:4px;padding:10px 14px;font-size:14px;font-weight:700;color:var(--chalk);font-family:'Inter',sans-serif;outline:none;text-transform:uppercase;letter-spacing:2px;" oninput="this.value=this.value.toUpperCase()">
+          <div style="font-size:11px;color:var(--steel);margin-top:5px;">You'll find this in the SMS from M-Pesa after payment</div>
+        </div>
+
+        <button onclick="confirmMpesaOrder()" style="width:100%;background:#00a550;color:white;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px;border-radius:6px;border:none;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='#00c060'" onmouseout="this.style.background='#00a550'">
+          ✅ Confirm Order via WhatsApp 📲
+        </button>
+        <div style="font-size:11px;color:var(--steel);text-align:center;margin-top:10px;">Your order details + M-Pesa code will be sent to our team on WhatsApp</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY PAGE -->
+  <div class="page" id="page-gallery">
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Photo Gallery</div>
+          <div style="font-size:13px;color:var(--steel);margin-top:4px;">Game day moments, training sessions & more</div>
+        </div>
+      </div>
+      <div class="gallery-filters">
+        <button class="gal-filter active" onclick="filterGallery('all',this)">All</button>
+        <button class="gal-filter" onclick="filterGallery('games',this)">🏀 Games</button>
+        <button class="gal-filter" onclick="filterGallery('training',this)">💪 Training</button>
+        <button class="gal-filter" onclick="filterGallery('team',this)">👥 Team</button>
+        <button class="gal-filter" onclick="filterGallery('events',this)">🎉 Events</button>
+      </div>
+      <div class="gallery-grid" id="gallery-grid">
+        <div class="gal-empty">
+          <div class="gal-empty-icon">📸</div>
+          <div>No photos yet.</div>
+          <div style="margin-top:6px;font-size:12px;">Admin can upload gallery photos from the admin panel.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox">
+    <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+    <button id="lightbox-prev" onclick="lightboxNav(-1)">‹</button>
+    <img id="lightbox-img" src="" alt="">
+    <div id="lightbox-caption"></div>
+    <button id="lightbox-next" onclick="lightboxNav(1)">›</button>
+  </div>
+
+  <!-- CONTACT PAGE -->
+  <div class="page" id="page-contact">
+    <div class="section">
+      <div class="section-header"><div class="section-title">Contact & About</div></div>
+      <div class="contact-grid">
+        <div>
+          <div class="section-header" style="margin-bottom:14px"><div class="section-title" style="font-size:18px">Get in Touch</div></div>
+          <div class="contact-form">
+            <input id="contact-name" type="text" placeholder="Your name" />
+            <input id="contact-email" type="email" placeholder="Email address" />
+            <select id="contact-subject" style="color:var(--steel)">
+              <option>General Enquiry</option>
+              <option>Sponsorship</option>
+              <option>Media Request</option>
+              <option>Merchandise</option>
+              <option>Joining the team</option>
+            </select>
+            <textarea id="contact-message" placeholder="Your message…"></textarea>
+            <button class="btn-primary" style="width:fit-content" onclick="sendContactEmail()">Send Message ✉️</button>
+            <div id="contact-note" style="font-size:11px;color:var(--steel);display:none;">Opening your email app…</div>
+          </div>
+        </div>
+        <div>
+          <div class="section-header" style="margin-bottom:14px"><div class="section-title" style="font-size:18px">About the Club</div></div>
+          <div style="font-size:13px;color:var(--steel);line-height:1.7;margin-bottom:20px">Founded in 2006, the Maweni Hornets are a Mombasa-based basketball club competing in the Mombasa Basketball League. We are committed to developing top-tier basketball talent and building a strong community around the sport in Kenya.</div>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
+              <div><div class="contact-label">Home Venue</div><div class="contact-val">Maweni Home-court, Mombasa</div></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="ti ti-mail" aria-hidden="true"></i></div>
+              <div><div class="contact-label">Email</div><div class="contact-val">mawenihornets06@gmail.com</div></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="ti ti-phone" aria-hidden="true"></i></div>
+              <div><div class="contact-label">Phone</div><div class="contact-val">+254 700 123 456</div></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="ti ti-brand-twitter" aria-hidden="true"></i></div>
+              <div><div class="contact-label">Social</div><div class="contact-val"> <a href="https://www.facebook.com/profile.php?id=100063612183149&__cft__[0]=AZbT2UBHBsVVjCVU2gVIyiQWGza78QRT72xUbNbBLSkYfIfYbsuh2KzKJtDBrhf0ig-f6cgYC5NVbhuan_jcLAQjTv5VVkkYlK6J_4Lo-zPFHZjdtACHFHrfnDKEDkPABtbngvip6h6HhsY3m0q5smcvgPUNQetgSftraV-U0xdYl2MJ8qKwOaxcQHLfuCM8rkQ&__tn__=-]K-R" class="social-btn" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+
+ <a href="https://www.instagram.com/mawenihornets/#" class="social-btn" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+
+ </div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">MAWENI HORNETS BASKETBALL</div>
+    <div class="footer-links">
+      <span class="footer-link" onclick="showPage('home')">Home</span>
+      <span class="footer-link" onclick="showPage('schedule')">Schedule</span>
+      <span class="footer-link" onclick="showPage('players')">Players</span>
+      <span class="footer-link" onclick="showPage('store')">Store</span>
+      <span class="footer-link" onclick="showPage('contact')">Contact</span>
+    </div>
+    <div style="margin-bottom:10px;"><span style="font-size:10px;color:rgba(138,155,176,0.3);cursor:pointer;" onclick="showAdminOrLogin()">⚙ Admin</span></div>
+    <div class="footer-copy">© 2025 Maweni Hornets Basketball Club · Mombasa, Kenya · All rights reserved</div>
+  </footer>
+
+  <!-- ADMIN LOGIN OVERLAY -->
+  <div id="admin-login-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:36px;width:100%;max-width:340px;text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--orange);margin-bottom:4px;">⚙️ ADMIN</div>
+      <div style="font-size:13px;color:var(--steel);margin-bottom:24px;">Maweni Hornets Control Panel</div>
+      <div class="admin-field" style="text-align:left;">
+        <div class="admin-label">Password</div>
+        <input id="admin-pw-input" class="admin-input" type="password" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')checkAdminPw()">
+      </div>
+      <div id="admin-pw-err" style="color:#e25555;font-size:12px;margin-bottom:10px;display:none;">❌ Wrong password. Try again.</div>
+      <button class="btn-primary" onclick="checkAdminPw()" style="width:100%;padding:12px;">Enter Admin Panel</button>
+      <button class="btn-ghost" onclick="closeAdmin()" style="width:100%;padding:10px;margin-top:8px;font-size:12px;">Cancel</button>
+    </div>
+  </div>
+
+  <!-- ADMIN PAGE -->
+  <div class="page" id="page-admin">
+    <div class="admin-panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--orange);">⚙️ ADMIN PANEL</div>
+          <div style="font-size:12px;color:var(--steel);">Update your website without touching code</div>
+        </div>
+        <button class="btn-danger" onclick="logoutAdmin()">🔒 Logout</button>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchAdminTab('games')">🏀 Games</button>
+        <button class="admin-tab" onclick="switchAdminTab('players')">👤 Players</button>
+        <button class="admin-tab" onclick="switchAdminTab('store')">🛍️ Store</button>
+        <button class="admin-tab" onclick="switchAdminTab('settings')">⚙️ Settings</button>
+        <button class="admin-tab" onclick="switchAdminTab('gallery')">📸 Gallery</button>
+      </div>
+
+      <!-- STORE TAB -->
+      <div class="admin-section" id="atab-store">
+        <div style="font-size:16px;font-weight:700;margin-bottom:16px;">Manage Products</div>
+        <div id="admin-products-list"></div>
+        <div class="admin-card" style="border-style:dashed;">
+          <div style="font-weight:700;margin-bottom:12px;color:var(--orange);">➕ Add New Product</div>
+          <div class="admin-row">
+            <div class="admin-field"><div class="admin-label">Product Name</div><input class="admin-input" id="new-prod-name" placeholder="e.g. Hornets Hoodie"></div>
+            <div class="admin-field"><div class="admin-label">Price (KES)</div><input class="admin-input" id="new-prod-price" type="number" placeholder="2500"></div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field"><div class="admin-label">Category</div>
+              <select class="admin-input" id="new-prod-cat">
+                <option value="tshirts">T-Shirts</option>
+                <option value="caps">Caps</option>
+                <option value="jerseys">Jerseys</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="admin-field"><div class="admin-label">Has Sizes? (S-XXL)</div>
+              <select class="admin-input" id="new-prod-sizes">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+          </div>
+          <div class="admin-field"><div class="admin-label">Description</div><input class="admin-input" id="new-prod-desc" placeholder="e.g. Unisex · Sizes S–XXL"></div>
+          <button class="btn-primary" onclick="addProduct()" style="margin-top:8px;">➕ Add Product</button>
+        </div>
+      </div>
+
+      <!-- GAMES TAB -->
+      <div class="admin-section active" id="atab-games">
+        <div style="font-size:16px;font-weight:700;margin-bottom:4px;">Games Control Panel</div>
+        <div style="font-size:12px;color:var(--steel);margin-bottom:20px;">Manage what fans see on the home page — upcoming fixtures, live scores, recaps and headlines.</div>
+
+        <!-- SUB-TABS -->
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+          <button class="admin-tab active" id="gtab-btn-upcoming" onclick="switchGameTab('upcoming',this)">📅 Upcoming Games</button>
+          <button class="admin-tab" id="gtab-btn-schedule" onclick="switchGameTab('schedule',this)">🗓️ Schedule & Results</button>
+          <button class="admin-tab" id="gtab-btn-live" onclick="switchGameTab('live',this)">🔴 Live Score</button>
+          <button class="admin-tab" id="gtab-btn-recap" onclick="switchGameTab('recap',this)">📋 Game Recap</button>
+          <button class="admin-tab" id="gtab-btn-headlines" onclick="switchGameTab('headlines',this)">📰 Headlines</button>
+        </div>
+
+        <!-- UPCOMING GAMES SUB-PANEL -->
+        <div id="gtab-upcoming">
+          <!-- Coming Soon Toggle -->
+          <div class="admin-card" style="margin-bottom:16px;border-color:rgba(204,0,0,0.5);">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+              <div>
+                <div style="font-weight:700;font-size:14px;color:var(--orange);">🚫 No Upcoming Games?</div>
+                <div style="font-size:12px;color:var(--steel);margin-top:3px;">Turn this on to show a "Coming Soon" banner instead of fixtures.</div>
+              </div>
+              <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+                <span style="font-size:12px;font-weight:700;color:var(--steel);">COMING SOON MODE</span>
+                <div id="coming-soon-toggle" onclick="toggleComingSoon()" style="width:48px;height:26px;border-radius:13px;background:var(--mid);border:1px solid var(--border);position:relative;cursor:pointer;transition:background 0.2s;">
+                  <div id="coming-soon-knob" style="position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--steel);transition:all 0.2s;"></div>
+                </div>
+              </label>
+            </div>
+            <div id="coming-soon-msg-row" style="margin-top:12px;display:none;">
+              <div class="admin-label">Custom Message (shown to fans)</div>
+              <input class="admin-input" id="coming-soon-msg" placeholder="e.g. Season resumes in August — stay tuned!" style="margin-top:4px;">
+              <button class="btn-primary" onclick="saveComingSoon()" style="margin-top:8px;">💾 Save</button>
+            </div>
+          </div>
+
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--chalk);">Upcoming Fixtures</div>
+          <div id="admin-upcoming-list"></div>
+          <div class="admin-card" style="border-style:dashed;margin-top:4px;">
+            <div style="font-weight:700;margin-bottom:12px;color:var(--orange);">➕ Add Upcoming Game</div>
+            <div class="admin-row">
+              <div class="admin-field"><div class="admin-label">Home Team</div><input class="admin-input" id="ug-home" placeholder="Maweni Hornets"></div>
+              <div class="admin-field"><div class="admin-label">Away Team</div><input class="admin-input" id="ug-away" placeholder="Nairobi Hawks"></div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-field"><div class="admin-label">Date</div><input class="admin-input" id="ug-date" type="date"></div>
+              <div class="admin-field"><div class="admin-label">Time (optional)</div><input class="admin-input" id="ug-time" placeholder="7:00 PM"></div>
+            </div>
+            <div class="admin-field"><div class="admin-label">Venue</div><input class="admin-input" id="ug-venue" placeholder="Nyayo Stadium, Nairobi"></div>
+            <button class="btn-primary" onclick="addUpcomingGame()" style="margin-top:8px;">➕ Add Game</button>
+          </div>
+        </div>
+
+        <!-- SCHEDULE & RESULTS SUB-PANEL -->
+        <div id="gtab-schedule" style="display:none;">
+          <div style="font-size:12px;color:var(--steel);margin-bottom:16px;">These games appear on the public <strong>Schedule</strong> page. Fans will see "Coming Soon" for every game there — this is just where you keep the record of teams, dates, venues and results behind the scenes.</div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--chalk);">All Games</div>
+          <div id="admin-games-list"></div>
+          <div class="admin-card" style="border-style:dashed;margin-top:4px;">
+            <div style="font-weight:700;margin-bottom:12px;color:var(--orange);">➕ Add Game</div>
+            <div class="admin-row">
+              <div class="admin-field"><div class="admin-label">Home Team</div><input class="admin-input" id="new-game-home" placeholder="Maweni Hornets"></div>
+              <div class="admin-field"><div class="admin-label">Away Team</div><input class="admin-input" id="new-game-away" placeholder="Nairobi Hawks"></div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-field"><div class="admin-label">Date</div><input class="admin-input" id="new-game-date" type="date"></div>
+              <div class="admin-field"><div class="admin-label">Status</div>
+                <select class="admin-input" id="new-game-status">
+                  <option value="upcoming">Upcoming</option>
+                  <option value="win">Win</option>
+                  <option value="loss">Loss</option>
+                  <option value="live">Live</option>
+                </select>
+              </div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-field"><div class="admin-label">Venue</div><input class="admin-input" id="new-game-venue" placeholder="Nyayo Stadium, Nairobi"></div>
+              <div class="admin-field"><div class="admin-label">Score (optional)</div><input class="admin-input" id="new-game-score" placeholder="e.g. 112 – 98"></div>
+            </div>
+            <button class="btn-primary" onclick="addGame()" style="margin-top:8px;">➕ Add Game</button>
+          </div>
+        </div>
+
+        <!-- LIVE SCORE SUB-PANEL -->
+        <div id="gtab-live" style="display:none;">
+          <div class="admin-card" style="margin-bottom:14px;border-color:var(--orange);">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+              <div style="font-weight:700;font-size:14px;color:var(--orange);">🔴 Live Game Banner</div>
+              <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+                <span style="font-size:12px;font-weight:700;color:var(--steel);">SHOW ON SITE</span>
+                <div id="live-score-toggle" onclick="toggleLiveScore()" style="width:48px;height:26px;border-radius:13px;background:var(--mid);border:1px solid var(--border);position:relative;cursor:pointer;transition:background 0.2s;">
+                  <div id="live-score-knob" style="position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--steel);transition:all 0.2s;"></div>
+                </div>
+              </label>
+            </div>
+            <div class="admin-row">
+              <div class="admin-field"><div class="admin-label">Home Team Abbr.</div><input class="admin-input" id="live-home-abbr" placeholder="MHB" maxlength="4"></div>
+              <div class="admin-field"><div class="admin-label">Away Team Abbr.</div><input class="admin-input" id="live-away-abbr" placeholder="NRB" maxlength="4"></div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-field"><div class="admin-label">Home Score</div><input class="admin-input" id="live-score1" type="number" placeholder="0"></div>
+              <div class="admin-field"><div class="admin-label">Away Score</div><input class="admin-input" id="live-score2" type="number" placeholder="0"></div>
+            </div>
+            <div class="admin-row">
+              <div class="admin-field"><div class="admin-label">Period / Status</div><input class="admin-input" id="live-period" placeholder="Q3 · 4:22"></div>
+              <div class="admin-field"><div class="admin-label">Badge Label</div>
+                <select class="admin-input" id="live-badge">
+                  <option value="LIVE">LIVE</option>
+                  <option value="FINAL">FINAL</option>
+                  <option value="HALFTIME">HALFTIME</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn-primary" onclick="saveLiveScore()" style="margin-top:8px;">💾 Update Live Score</button>
+          </div>
+          <div style="font-size:12px;color:var(--steel);">The live score banner appears at the top of the Home page when enabled. Turn it off after the game ends.</div>
+        </div>
+
+        <!-- GAME RECAP SUB-PANEL -->
+        <div id="gtab-recap" style="display:none;">
+          <div class="admin-card">
+            <div style="font-weight:700;font-size:14px;color:var(--orange);margin-bottom:12px;">📋 Game Recap</div>
+            <div class="admin-field"><div class="admin-label">Recap Title</div><input class="admin-input" id="recap-title" placeholder="e.g. Hornets crush Rangers 112–98 in dominant display"></div>
+            <div class="admin-field"><div class="admin-label">Recap Body (short summary shown on home page)</div><textarea class="admin-input" id="recap-body" rows="3" placeholder="Describe the game — top performers, key moments, final score…" style="resize:vertical;min-height:80px;"></textarea></div>
+            <div class="admin-row">
+              <div class="admin-field"><div class="admin-label">Date</div><input class="admin-input" id="recap-date" placeholder="Jun 22"></div>
+              <div class="admin-field"><div class="admin-label">Result</div>
+                <select class="admin-input" id="recap-result">
+                  <option value="win">Win</option>
+                  <option value="loss">Loss</option>
+                </select>
+              </div>
+            </div>
+            <div class="admin-field"><div class="admin-label">Final Score</div><input class="admin-input" id="recap-score" placeholder="112 – 98"></div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+              <button class="btn-primary" onclick="saveRecap()">💾 Save Recap</button>
+              <button class="btn-danger" onclick="clearRecap()">🗑 Clear</button>
+            </div>
+          </div>
+          <div style="font-size:12px;color:var(--steel);margin-top:10px;">The recap appears as a news card on the Home page. Clear it when you're ready to start fresh for the next game.</div>
+        </div>
+
+        <!-- HEADLINES SUB-PANEL -->
+        <div id="gtab-headlines" style="display:none;">
+          <div class="admin-card">
+            <div style="font-weight:700;font-size:14px;color:var(--orange);margin-bottom:12px;">📰 Latest Headline</div>
+            <div class="admin-field"><div class="admin-label">Headline Title</div><input class="admin-input" id="news-title-input2" placeholder="e.g. Hornets crush Rangers 112–98"></div>
+            <div class="admin-field"><div class="admin-label">Category</div>
+              <select class="admin-input" id="news-cat-input2">
+                <option>Game Recap</option><option>Transfer News</option><option>Injury Update</option><option>Club News</option><option>Training</option>
+              </select>
+            </div>
+            <button class="btn-primary" onclick="saveNewsFromGames()" style="margin-top:8px;">💾 Save Headline</button>
+          </div>
+          <div style="font-size:12px;color:var(--steel);margin-top:10px;">Updates the headline card on the Home page instantly.</div>
+        </div>
+
+      </div>
+
+      <!-- PLAYERS TAB -->
+      <div class="admin-section" id="atab-players">
+        <div style="font-size:16px;font-weight:700;margin-bottom:16px;">Manage Roster</div>
+        <div id="admin-players-list"></div>
+        <div class="admin-card" style="border-style:dashed;">
+          <div style="font-weight:700;margin-bottom:12px;color:var(--orange);">➕ Add Player</div>
+          <div class="admin-photo-row">
+            <img id="new-p-photo-preview" class="admin-photo-thumb" style="display:none;">
+            <div id="new-p-photo-placeholder" class="admin-photo-placeholder">👤</div>
+            <div class="admin-photo-controls">
+              <div class="admin-label">Player Photo</div>
+              <input type="file" accept="image/*" id="new-p-photo" onchange="previewNewPlayerPhoto(this)">
+            </div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field"><div class="admin-label">Jersey No.</div><input class="admin-input" id="new-p-num" type="number" placeholder="23"></div>
+            <div class="admin-field"><div class="admin-label">Name</div><input class="admin-input" id="new-p-name" placeholder="J. Mwangi"></div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field"><div class="admin-label">Position</div>
+              <select class="admin-input" id="new-p-pos">
+                <option>Point Guard</option>
+                <option>Shooting Guard</option>
+                <option>Small Forward</option>
+                <option>Power Forward</option>
+                <option>Center</option>
+              </select>
+            </div>
+            <div class="admin-field"><div class="admin-label">Height</div><input class="admin-input" id="new-p-height" placeholder="6'2&quot;"></div>
+          </div>
+          <div class="admin-field"><div class="admin-label">Status</div>
+            <select class="admin-input" id="new-p-status">
+              <option value="Active">Active</option>
+              <option value="Injured">Injured</option>
+              <option value="Suspended">Suspended</option>
+            </select>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field"><div class="admin-label">PPG</div><input class="admin-input" id="new-p-ppg" type="number" step="0.1" placeholder="0"></div>
+            <div class="admin-field"><div class="admin-label">APG</div><input class="admin-input" id="new-p-apg" type="number" step="0.1" placeholder="0"></div>
+            <div class="admin-field"><div class="admin-label">RPG</div><input class="admin-input" id="new-p-rpg" type="number" step="0.1" placeholder="0"></div>
+          </div>
+          <button class="btn-primary" onclick="addPlayer()" style="margin-top:8px;">➕ Add Player</button>
+        </div>
+      </div>
+
+      <!-- NEWS TAB -->
+      <div class="admin-section" id="atab-news">
+        <div style="font-size:16px;font-weight:700;margin-bottom:16px;">Latest Headline</div>
+        <div class="admin-card">
+          <div class="admin-field"><div class="admin-label">Headline Title</div><input class="admin-input" id="news-title-input" placeholder="e.g. Hornets crush Rangers 112–98"></div>
+          <div class="admin-field"><div class="admin-label">Category</div>
+            <select class="admin-input" id="news-cat-input">
+              <option>Game Recap</option><option>Transfer News</option><option>Injury Update</option><option>Club News</option><option>Training</option>
+            </select>
+          </div>
+          <button class="btn-primary" onclick="saveNews()" style="margin-top:8px;">💾 Save Headline</button>
+        </div>
+        <div style="font-size:13px;color:var(--steel);margin-top:8px;">The headline updates instantly on the Home page.</div>
+      </div>
+
+      <!-- SETTINGS TAB -->
+      <div class="admin-section" id="atab-settings">
+        <div style="font-size:16px;font-weight:700;margin-bottom:16px;">Site Settings</div>
+        <div class="admin-card">
+          <div style="font-weight:700;margin-bottom:12px;color:var(--orange);">📞 Contact Details</div>
+          <div class="admin-field"><div class="admin-label">WhatsApp Number (for orders)</div><input class="admin-input" id="set-wa" placeholder="254746305373"></div>
+          <div class="admin-field"><div class="admin-label">Email</div><input class="admin-input" id="set-email" placeholder="info@mawenihornets.co.ke"></div>
+          <div class="admin-field"><div class="admin-label">Phone</div><input class="admin-input" id="set-phone" placeholder="+254 700 123 456"></div>
+          <div class="admin-field"><div class="admin-label">M-Pesa Till Number</div><input class="admin-input" id="set-till" placeholder="4746305"></div>
+        </div>
+        <div class="admin-card" style="margin-top:12px;">
+          <div style="font-weight:700;margin-bottom:12px;color:var(--orange);">🏀 Season Record</div>
+          <div class="admin-row">
+            <div class="admin-field"><div class="admin-label">Wins</div><input class="admin-input" id="set-wins" type="number" placeholder="18"></div>
+            <div class="admin-field"><div class="admin-label">Losses</div><input class="admin-input" id="set-losses" type="number" placeholder="6"></div>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="saveSettings()" style="margin-top:4px;">💾 Save Settings</button>
+        <div class="admin-card" style="margin-top:20px;border-color:#e25555;">
+          <div style="font-weight:700;margin-bottom:8px;color:#e25555;">🔑 Change Admin Password</div>
+          <div class="admin-field"><div class="admin-label">New Password</div><input class="admin-input" id="new-pw" type="password" placeholder="Enter new password"></div>
+          <div class="admin-field"><div class="admin-label">Confirm Password</div><input class="admin-input" id="new-pw2" type="password" placeholder="Confirm new password"></div>
+          <button class="btn-danger" onclick="changePassword()" style="margin-top:4px;">🔑 Change Password</button>
+        </div>
+      </div>
+
+      <!-- GALLERY TAB -->
+      <div class="admin-section" id="atab-gallery">
+        <div style="font-size:16px;font-weight:700;margin-bottom:16px;">Manage Gallery</div>
+        <div class="admin-card" style="border-style:dashed;margin-bottom:16px;">
+          <div style="font-weight:700;margin-bottom:12px;color:var(--orange);">➕ Add Photo</div>
+          <div class="admin-photo-row">
+            <img id="gal-photo-preview" class="admin-photo-thumb" style="border-radius:6px;display:none;">
+            <div id="gal-photo-placeholder" class="admin-photo-placeholder" style="border-radius:6px;">📷</div>
+            <div class="admin-photo-controls">
+              <div class="admin-label">Photo</div>
+              <input type="file" accept="image/*" id="gal-photo-file" onchange="previewGalleryPhoto(this)">
+              <button type="button" id="gal-photo-remove-btn" class="admin-photo-remove" style="display:none;" onclick="clearGalleryPhotoSelection()">Remove photo</button>
+            </div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field">
+              <div class="admin-label">Caption</div>
+              <input class="admin-input" id="gal-caption" placeholder="e.g. Hornets vs Eagles · Mar 2025">
+            </div>
+            <div class="admin-field">
+              <div class="admin-label">Category</div>
+              <select class="admin-input" id="gal-cat">
+                <option value="games">Games</option>
+                <option value="training">Training</option>
+                <option value="team">Team</option>
+                <option value="events">Events</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="addGalleryPhoto()" style="margin-top:8px;">📸 Add Photo</button>
+        </div>
+        <div id="admin-gallery-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+</div>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const p = document.getElementById('page-' + id);
+  if (p) p.classList.add('active');
+  const links = document.querySelectorAll('.nav-link');
+  links.forEach(l => { if (l.textContent.toLowerCase().trim() === id || (id==='home' && l.textContent.toLowerCase().trim()==='home')) l.classList.add('active'); });
+  document.querySelector('.site').scrollTop = 0;
+}
+
+// ---- SITE SEARCH ----
+var currentSearchFirstAction = null;
+
+function performSiteSearch(query) {
+  var resultsEl = document.getElementById('site-search-results');
+  if (!resultsEl) return;
+  var q = query.trim().toLowerCase();
+  currentSearchFirstAction = null;
+  if (!q) { closeSiteSearch(); return; }
+
+  var players = getPlayers().filter(function(p) {
+    return p.name.toLowerCase().indexOf(q) !== -1 || p.pos.toLowerCase().indexOf(q) !== -1 || String(p.num).indexOf(q) !== -1;
+  }).slice(0, 5);
+
+  var games = getGames().filter(function(g) {
+    return g.home.toLowerCase().indexOf(q) !== -1 || (g.venue||'').toLowerCase().indexOf(q) !== -1;
+  }).slice(0, 5);
+
+  var products = getProducts().filter(function(p) {
+    return p.name.toLowerCase().indexOf(q) !== -1 || (p.desc||'').toLowerCase().indexOf(q) !== -1;
+  }).slice(0, 5);
+
+  var html = '';
+  if (players.length) {
+    html += '<div class="search-result-group-label">Players</div>';
+    players.forEach(function(p) {
+      var nameEsc = p.name.replace(/'/g, "\\'");
+      html += '<div class="search-result-item" onclick="goToSearchPlayer(\'' + nameEsc + '\')">'
+        + '<div class="search-result-title">#' + p.num + ' ' + p.name + '</div>'
+        + '<div class="search-result-sub">' + p.pos + '</div></div>';
+      if (!currentSearchFirstAction) currentSearchFirstAction = function(){ goToSearchPlayer(p.name); };
+    });
+  }
+  if (games.length) {
+    html += '<div class="search-result-group-label">Games</div>';
+    games.forEach(function(g) {
+      var homeEsc = g.home.replace(/'/g, "\\'");
+      var dateEsc = (g.date||'').replace(/'/g, "\\'");
+      html += '<div class="search-result-item" onclick="goToSearchGame(\'' + homeEsc + '\',\'' + dateEsc + '\')">'
+        + '<div class="search-result-title">' + g.home + '</div>'
+        + '<div class="search-result-sub">' + (g.date||'') + (g.venue ? ' · ' + g.venue : '') + '</div></div>';
+      if (!currentSearchFirstAction) currentSearchFirstAction = function(){ goToSearchGame(g.home, g.date); };
+    });
+  }
+  if (products.length) {
+    html += '<div class="search-result-group-label">Store</div>';
+    products.forEach(function(p) {
+      html += '<div class="search-result-item" onclick="goToSearchProduct(\'' + p.id + '\')">'
+        + '<div class="search-result-title">' + p.name + '</div>'
+        + '<div class="search-result-sub">KES ' + p.price.toLocaleString() + '</div></div>';
+      if (!currentSearchFirstAction) currentSearchFirstAction = function(){ goToSearchProduct(p.id); };
+    });
+  }
+  if (!html) html = '<div class="search-result-empty">No results for "' + query + '"</div>';
+
+  resultsEl.innerHTML = html;
+  resultsEl.classList.add('open');
+}
+
+function closeSiteSearch() {
+  var resultsEl = document.getElementById('site-search-results');
+  if (resultsEl) { resultsEl.classList.remove('open'); resultsEl.innerHTML = ''; }
+}
+
+function handleSearchKeydown(e) {
+  if (e.key === 'Escape') {
+    e.target.value = '';
+    closeSiteSearch();
+    e.target.blur();
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    if (currentSearchFirstAction) currentSearchFirstAction();
+  }
+}
+
+function highlightSearchResult(el) {
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  var prevShadow = el.style.boxShadow, prevBorderColor = el.style.borderColor;
+  el.style.transition = 'box-shadow 0.3s, border-color 0.3s';
+  el.style.boxShadow = '0 0 0 3px var(--orange)';
+  el.style.borderColor = 'var(--orange)';
+  setTimeout(function() {
+    el.style.boxShadow = prevShadow;
+    el.style.borderColor = prevBorderColor;
+  }, 2000);
+}
+
+function goToSearchPlayer(name) {
+  closeSiteSearch();
+  var input = document.getElementById('site-search-input'); if (input) input.value = '';
+  showPage('players');
+  setTimeout(function() {
+    var names = document.querySelectorAll('#players-grid .player-card-name');
+    for (var i = 0; i < names.length; i++) {
+      if (names[i].textContent === name) { highlightSearchResult(names[i].closest('.player-card')); break; }
+    }
+  }, 100);
+}
+
+function goToSearchGame(home, date) {
+  closeSiteSearch();
+  var input = document.getElementById('site-search-input'); if (input) input.value = '';
+  showPage('schedule');
+  setTimeout(function() {
+    var rows = document.querySelectorAll('#page-schedule .game-row');
+    for (var i = 0; i < rows.length; i++) {
+      var teamEl = rows[i].querySelector('.game-teams');
+      var dateEl = rows[i].querySelector('.game-date');
+      if (teamEl && teamEl.textContent === home && dateEl && dateEl.textContent === date) { highlightSearchResult(rows[i]); break; }
+    }
+  }, 100);
+}
+
+function goToSearchProduct(id) {
+  closeSiteSearch();
+  var input = document.getElementById('site-search-input'); if (input) input.value = '';
+  showPage('store');
+  setTimeout(function() {
+    var card = document.querySelector('.store-card[onclick="openProduct(\'' + id + '\')"]');
+    highlightSearchResult(card);
+  }, 100);
+}
+
+document.addEventListener('click', function(e) {
+  var wrap = document.querySelector('.nav-search');
+  if (wrap && !wrap.contains(e.target)) closeSiteSearch();
+});
+
+function vote(idx) {
+  const vals = [62,20,18];
+  vals[idx] = Math.min(vals[idx] + 3, 80);
+  const total = vals.reduce((a,b)=>a+b,0);
+  vals.forEach((v,i) => {
+    const norm = Math.round(v/total*100);
+    document.getElementById('bar'+i).style.width = norm+'%';
+    document.getElementById('pct'+i).textContent = norm+'%';
+  });
+}
+function vote2(idx) {
+  const vals = [74,26];
+  vals[idx] = Math.min(vals[idx]+3,90);
+  const total = vals.reduce((a,b)=>a+b,0);
+  const labels = ['a','b'];
+  vals.forEach((v,i) => {
+    const norm = Math.round(v/total*100);
+    document.getElementById('bar2'+labels[i]).style.width = norm+'%';
+    document.getElementById('pct2'+labels[i]).textContent = norm+'%';
+  });
+}
+
+
+var currentProduct = null;
+var currentQty = 1;
+
+var products = {
+  'tshirt-white': { name: 'Hornets T-Shirt — White', price: 1800, img: 'white_tshirt', hasSize: true },
+  'tshirt-black': { name: 'Hornets T-Shirt — Black', price: 1800, img: 'black_tshirt', hasSize: true },
+  'cap-white':    { name: 'Hornets Cap — White', price: 1200, img: 'white_cap', hasSize: false },
+  'cap-black':    { name: 'Hornets Cap — Black', price: 1200, img: 'black_cap', hasSize: false },
+};
+
+// Store imgs
+var productImgs = {};
+
+function initProductImgs() {
+  var cards = document.querySelectorAll('.store-card img');
+  cards.forEach(function(img) {
+    var card = img.closest('.store-card');
+    var btn = card.querySelector('.btn-primary');
+    var onclickAttr = card.getAttribute('onclick');
+    if (onclickAttr) {
+      var match = onclickAttr.match(/openProduct\('([^']+)'\)/);
+      if (match) productImgs[match[1]] = img.src;
+    }
+  });
+}
+
+function openProduct(id) {
+  currentProduct = id;
+  currentQty = 1;
+  var p = products[id];
+  // Get img from store card
+  var storeImg = document.querySelector('.store-card[onclick="openProduct(\''+id+'\')"] img');
+  document.getElementById('modal-img').src = storeImg ? storeImg.src : '';
+  document.getElementById('modal-name').textContent = p.name;
+  document.getElementById('modal-price').textContent = 'KES ' + p.price.toLocaleString();
+  document.getElementById('qty-display').textContent = '1';
+  document.getElementById('order-name').value = '';
+  document.getElementById('order-phone').value = '';
+  document.getElementById('order-address').value = '';
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('modal-size-group').style.display = p.hasSize ? 'block' : 'none';
+  updateTotal();
+  document.getElementById('product-modal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProduct() {
+  document.getElementById('product-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function selectSize(btn) {
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function changeQty(delta) {
+  currentQty = Math.max(1, Math.min(10, currentQty + delta));
+  document.getElementById('qty-display').textContent = currentQty;
+  updateTotal();
+}
+
+function updateTotal() {
+  if (!currentProduct) return;
+  var p = products[currentProduct];
+  var total = p.price * currentQty;
+  document.getElementById('order-total').textContent = 'Total: KES ' + total.toLocaleString();
+}
+
+function placeOrder() {
+  var p = products[currentProduct];
+  var name = document.getElementById('order-name').value.trim();
+  var phone = document.getElementById('order-phone').value.trim();
+  var address = document.getElementById('order-address').value.trim();
+  var selectedSize = '';
+  var sizeBtn = document.querySelector('.size-btn.selected');
+  if (sizeBtn) selectedSize = sizeBtn.textContent;
+  if (!name) { alert('Please enter your name.'); return; }
+  if (!phone) { alert('Please enter your phone number.'); return; }
+  if (p.hasSize && !selectedSize) { alert('Please select a size.'); return; }
+  var total = p.price * currentQty;
+  // Show M-Pesa payment modal
+  var d = getData();
+  var till = d.till || '000000';
+  document.getElementById('mpesa-till').textContent = till.split('').join(' ');
+  document.getElementById('mpesa-amount').textContent = 'KES ' + total.toLocaleString();
+  document.getElementById('mpesa-code').value = '';
+  document.getElementById('product-modal').style.display = 'none';
+  document.getElementById('mpesa-modal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMpesa() {
+  document.getElementById('mpesa-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function confirmMpesaOrder() {
+  var code = document.getElementById('mpesa-code').value.trim();
+  if (!code) { alert('Please enter your M-Pesa confirmation code.'); return; }
+  var p = products[currentProduct];
+  var name = document.getElementById('order-name').value.trim();
+  var phone = document.getElementById('order-phone').value.trim();
+  var address = document.getElementById('order-address').value.trim();
+  var sizeBtn = document.querySelector('.size-btn.selected');
+  var selectedSize = sizeBtn ? sizeBtn.textContent : '';
+  var total = p.price * currentQty;
+  var msg = '🏀 *MAWENI HORNETS ORDER*\n\n'
+    + '*Item:* ' + p.name + '\n'
+    + (selectedSize ? '*Size:* ' + selectedSize + '\n' : '')
+    + '*Qty:* ' + currentQty + '\n'
+    + '*Total:* KES ' + total.toLocaleString() + '\n\n'
+    + '*Name:* ' + name + '\n'
+    + '*Phone:* ' + phone + '\n'
+    + '*Address:* ' + (address || 'TBD') + '\n\n'
+    + '✅ *M-Pesa Code:* ' + code + '\n\n'
+    + 'Payment done! Please confirm my order. Thank you! 🙏';
+  var wa = 'https://wa.me/254746305373?text=' + encodeURIComponent(msg);
+  closeMpesa();
+  window.open(wa, '_blank');
+}
+
+function filterStore(cat) {
+  document.querySelectorAll('#store-grid .store-card').forEach(function(card) {
+    if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+  ['all','tshirts','caps'].forEach(function(t) {
+    var btn = document.getElementById('tab-' + t);
+    if (!btn) return;
+    if (t === cat) { btn.className = 'btn-primary'; btn.style.cssText = 'padding:8px 18px;font-size:12px;'; }
+    else { btn.className = 'btn-ghost'; btn.style.cssText = 'padding:8px 18px;font-size:12px;'; }
+  });
+}
+
+// Close modal on backdrop click
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('product-modal');
+  if (e.target === modal) closeProduct();
+  var mpesa = document.getElementById('mpesa-modal');
+  if (e.target === mpesa) closeMpesa();
+});
+
+
+
+// ========== CONTACT FORM ==========
+function sendContactEmail() {
+  var name    = document.getElementById('contact-name').value.trim();
+  var email   = document.getElementById('contact-email').value.trim();
+  var subject = document.getElementById('contact-subject').value;
+  var message = document.getElementById('contact-message').value.trim();
+  if (!name)    { alert('Please enter your name.');    return; }
+  if (!email)   { alert('Please enter your email address.'); return; }
+  if (!message) { alert('Please enter your message.'); return; }
+  var d = getData();
+  var toEmail = d.email || 'info@mawenihornets.co.ke';
+  var body = 'Name: ' + name + '\nEmail: ' + email + '\n\n' + message;
+  var mailto = 'mailto:' + toEmail
+    + '?subject=' + encodeURIComponent('[Maweni Hornets] ' + subject)
+    + '&body='    + encodeURIComponent(body);
+  window.location.href = mailto;
+  document.getElementById('contact-note').style.display = 'block';
+}
+
+// ========== ADMIN SYSTEM ==========
+var ADMIN_PW_KEY = 'maweni_admin_pw';
+var ADMIN_AUTH_KEY = 'maweni_admin_auth';
+var DATA_KEY = 'maweni_data';
+
+function getAdminPw() { return localStorage.getItem(ADMIN_PW_KEY) || 'hornets2025'; }
+
+function openAdminLogin() {
+  document.getElementById('admin-login-overlay').style.display = 'flex';
+  setTimeout(() => document.getElementById('admin-pw-input').focus(), 100);
+}
+
+function closeAdmin() {
+  document.getElementById('admin-login-overlay').style.display = 'none';
+  document.getElementById('admin-pw-input').value = '';
+  document.getElementById('admin-pw-err').style.display = 'none';
+}
+
+function checkAdminPw() {
+  var pw = document.getElementById('admin-pw-input').value;
+  if (pw === getAdminPw()) {
+    sessionStorage.setItem(ADMIN_AUTH_KEY, '1');
+    closeAdmin();
+    showPage('admin');
+    loadAdminData();
+  } else {
+    document.getElementById('admin-pw-err').style.display = 'block';
+    document.getElementById('admin-pw-input').value = '';
+  }
+}
+
+function logoutAdmin() {
+  sessionStorage.removeItem(ADMIN_AUTH_KEY);
+  showPage('home');
+}
+
+function showAdminOrLogin() {
+  if (sessionStorage.getItem(ADMIN_AUTH_KEY) === '1') {
+    showPage('admin');
+    loadAdminData();
+  } else {
+    openAdminLogin();
+  }
+}
+
+function toast(msg, color) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = color || '#00a550';
+  t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 3000);
+}
+
+function getData() {
+  try { return JSON.parse(localStorage.getItem(DATA_KEY)) || {}; } catch(e) { return {}; }
+}
+function saveData(d) { localStorage.setItem(DATA_KEY, JSON.stringify(d)); }
+
+// ---- ADMIN TABS ----
+function switchAdminTab(tab) {
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('atab-' + tab).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ---- LOAD ALL ADMIN DATA ----
+function loadAdminData() {
+  renderAdminProducts();
+  renderAdminGames();
+  renderAdminPlayers();
+  loadSettings();
+  loadNewsAdmin();
+  renderAdminGallery();
+  // New panels
+  renderAdminUpcoming();
+  loadLiveScoreAdmin();
+  loadRecapAdmin();
+  // Restore coming soon toggle state
+  var d = getData();
+  applyComingSoonToggle(d.comingSoon);
+  if (d.comingSoonMsg && document.getElementById('coming-soon-msg')) {
+    document.getElementById('coming-soon-msg').value = d.comingSoonMsg;
+  }
+}
+
+// ---- PRODUCTS ----
+function getProducts() {
+  var d = getData();
+  if (!d.products) d.products = [
+    {id:'tshirt-white', name:'Hornets T-Shirt — White', price:1800, cat:'tshirts', desc:'Unisex · Sizes S–XXL', hasSize:true},
+    {id:'tshirt-black', name:'Hornets T-Shirt — Black', price:1800, cat:'tshirts', desc:'Unisex · Sizes S–XXL', hasSize:true},
+    {id:'cap-white',    name:'Hornets Cap — White',     price:1200, cat:'caps',    desc:'Adjustable · One Size', hasSize:false},
+    {id:'cap-black',    name:'Hornets Cap — Black',     price:1200, cat:'caps',    desc:'Adjustable · One Size', hasSize:false},
+  ];
+  return d.products;
+}
+
+function renderAdminProducts() {
+  var prods = getProducts();
+  var html = '';
+  prods.forEach(function(p, i) {
+    html += '<div class="admin-card"><div class="admin-card-header"><div class="admin-card-title">' + p.name + '</div><button class="btn-danger" onclick="deleteProduct(' + i + ')">🗑 Remove</button></div>'
+      + '<div class="admin-row">'
+      + '<div class="admin-field"><div class="admin-label">Name</div><input class="admin-input" value="' + p.name + '" onchange="updateProduct(' + i + ',\'name\',this.value)"></div>'
+      + '<div class="admin-field"><div class="admin-label">Price (KES)</div><input class="admin-input" type="number" value="' + p.price + '" onchange="updateProduct(' + i + ',\'price\',parseInt(this.value))"></div>'
+      + '</div>'
+      + '<div class="admin-row">'
+      + '<div class="admin-field"><div class="admin-label">Category</div><select class="admin-input" onchange="updateProduct(' + i + ',\'cat\',this.value)"><option value=\'tshirts\'' + (p.cat==='tshirts'?' selected':'') + '>T-Shirts</option><option value=\'caps\'' + (p.cat==='caps'?' selected':'') + '>Caps</option><option value=\'jerseys\'' + (p.cat==='jerseys'?' selected':'') + '>Jerseys</option><option value=\'other\'' + (p.cat==='other'?' selected':'') + '>Other</option></select></div>'
+      + '<div class="admin-field"><div class="admin-label">Description</div><input class="admin-input" value="' + p.desc + '" onchange="updateProduct(' + i + ',\'desc\',this.value)"></div>'
+      + '</div>'
+      + '</div>';
+  });
+  document.getElementById('admin-products-list').innerHTML = html;
+}
+
+function updateProduct(i, key, val) {
+  var d = getData(); var prods = getProducts();
+  prods[i][key] = val; d.products = prods; saveData(d);
+  toast('✅ Product updated!'); renderStoreFromData();
+}
+
+function deleteProduct(i) {
+  if (!confirm('Remove this product?')) return;
+  var d = getData(); var prods = getProducts();
+  prods.splice(i, 1); d.products = prods; saveData(d);
+  renderAdminProducts(); renderStoreFromData(); toast('🗑 Product removed.', '#e25555');
+}
+
+function addProduct() {
+  var name = document.getElementById('new-prod-name').value.trim();
+  var price = parseInt(document.getElementById('new-prod-price').value);
+  var cat = document.getElementById('new-prod-cat').value;
+  var desc = document.getElementById('new-prod-desc').value.trim();
+  var hasSize = document.getElementById('new-prod-sizes').value === 'yes';
+  if (!name || !price) { alert('Please fill in name and price.'); return; }
+  var d = getData(); var prods = getProducts();
+  var id = 'prod-' + Date.now();
+  prods.push({id, name, price, cat, desc: desc || 'Available now', hasSize});
+  d.products = prods; saveData(d);
+  document.getElementById('new-prod-name').value = '';
+  document.getElementById('new-prod-price').value = '';
+  document.getElementById('new-prod-desc').value = '';
+  renderAdminProducts(); renderStoreFromData();
+  toast('✅ Product added!');
+}
+
+function renderStoreFromData() {
+  var prods = getProducts();
+  var grid = document.getElementById('store-grid');
+  if (!grid) return;
+  // Only update name, price, desc on existing cards; images stay
+  prods.forEach(function(p) {
+    var card = document.querySelector('.store-card[onclick="openProduct(\''+p.id+'\')"]');
+    if (card) {
+      var nameEl = card.querySelector('.store-name'); if (nameEl) nameEl.textContent = p.name;
+      var priceEl = card.querySelector('.store-price'); if (priceEl) priceEl.textContent = 'KES ' + p.price.toLocaleString();
+    }
+  });
+  // Update products JS object
+  prods.forEach(function(p) {
+    products[p.id] = {name: p.name, price: p.price, img: p.id, hasSize: p.hasSize};
+  });
+}
+
+
+// ---- GAMES ----
+function getGames() {
+  var d = getData();
+  if (!d.games) d.games = [
+    {home:'Hornets vs Rangers', venue:'Nyayo Stadium, Nairobi', date:'Jun 22', status:'win', score:'112 – 98'},
+    {home:'Hornets vs Nakuru Stallions', venue:'Nyayo Stadium, Nairobi', date:'Jun 15', status:'loss', score:'88 – 95'},
+    {home:'Hornets vs Nairobi Hawks', venue:'Nyayo Stadium, Nairobi · 7:00 PM', date:'Jun 28', status:'upcoming', score:''},
+    {home:'Hornets vs Mombasa Lions', venue:'Away · Mombasa Sports Club', date:'Jul 2', status:'upcoming', score:''},
+  ];
+  return d.games;
+}
+
+function renderAdminGames() {
+  var games = getGames();
+  var html = '';
+  games.forEach(function(g, i) {
+    var statusColor = g.status==='win'?'#5cb85c':g.status==='loss'?'#e25555':'var(--orange-light)';
+    html += '<div class="admin-card"><div class="admin-card-header"><div class="admin-card-title" style="color:'+statusColor+'">' + g.home + ' · ' + g.date + '</div><button class="btn-danger" onclick="deleteGame('+i+')">🗑</button></div>'
+      + '<div class="admin-row">'
+      + '<div class="admin-field"><div class="admin-label">Teams</div><input class="admin-input" value="' + g.home + '" onchange="updateGame('+i+',\'home\',this.value)"></div>'
+      + '<div class="admin-field"><div class="admin-label">Date</div><input class="admin-input" value="' + g.date + '" onchange="updateGame('+i+',\'date\',this.value)"></div>'
+      + '</div><div class="admin-row">'
+      + '<div class="admin-field"><div class="admin-label">Status</div><select class="admin-input" onchange="updateGame('+i+',\'status\',this.value)"><option value=\'upcoming\'' + (g.status==='upcoming'?' selected':'') + '>Upcoming</option><option value=\'win\'' + (g.status==='win'?' selected':'') + '>Win</option><option value=\'loss\'' + (g.status==='loss'?' selected':'') + '>Loss</option><option value=\'live\'' + (g.status==='live'?' selected':'') + '>Live</option></select></div>'
+      + '<div class="admin-field"><div class="admin-label">Score</div><input class="admin-input" value="' + (g.score||'') + '" placeholder="e.g. 112 – 98" onchange="updateGame('+i+',\'score\',this.value)"></div>'
+      + '</div>'
+      + '<div class="admin-field"><div class="admin-label">Venue</div><input class="admin-input" value="' + g.venue + '" onchange="updateGame('+i+',\'venue\',this.value)"></div>'
+      + '</div>';
+  });
+  document.getElementById('admin-games-list').innerHTML = html;
+}
+
+function updateGame(i, key, val) {
+  var d = getData(); var games = getGames();
+  games[i][key] = val; d.games = games; saveData(d);
+  toast('✅ Game updated!'); renderGamesOnSite();
+}
+function deleteGame(i) {
+  if (!confirm('Remove this game?')) return;
+  var d = getData(); var games = getGames(); games.splice(i,1); d.games = games; saveData(d);
+  renderAdminGames(); renderGamesOnSite(); toast('🗑 Game removed.','#e25555');
+}
+function addGame() {
+  var home = document.getElementById('new-game-home').value.trim();
+  var away = document.getElementById('new-game-away').value.trim();
+  var dateVal = document.getElementById('new-game-date').value;
+  var venue = document.getElementById('new-game-venue').value.trim();
+  var status = document.getElementById('new-game-status').value;
+  var score = document.getElementById('new-game-score').value.trim();
+  if (!home || !away) { alert('Please enter both teams.'); return; }
+  var label = home + ' vs ' + away;
+  var dateLabel = dateVal ? new Date(dateVal).toLocaleDateString('en-GB',{month:'short',day:'numeric'}) : '';
+  var d = getData(); var games = getGames();
+  games.unshift({home:label, venue:venue||'TBD', date:dateLabel, status, score});
+  d.games = games; saveData(d);
+  ['new-game-home','new-game-away','new-game-venue','new-game-score','new-game-date'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('new-game-status').value = 'upcoming';
+  renderAdminGames(); renderGamesOnSite(); toast('✅ Game added!');
+}
+
+function renderGamesOnSite() {
+  var games = getGames();
+  // Update schedule page
+  var schedList = document.querySelector('#page-schedule .games-list');
+  if (!schedList) return;
+  if (!games.length) {
+    schedList.innerHTML = '<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px 24px;text-align:center;">'
+      + '<div style="font-size:32px;margin-bottom:10px;">🏀</div>'
+      + '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:22px;letter-spacing:2px;color:var(--orange);margin-bottom:8px;">COMING SOON</div>'
+      + '<div style="font-size:13px;color:var(--steel);">No games scheduled yet — check back soon!</div>'
+      + '</div>';
+    return;
+  }
+  schedList.innerHTML = games.map(function(g) {
+    return '<div class="game-row"><div><div class="game-teams">'+g.home+'</div><div style="font-size:12px;color:var(--steel);margin-top:2px">'+g.venue+'</div></div><div class="game-info"><div class="game-date">'+g.date+'</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div></div>';
+  }).join('');
+}
+
+// ---- PLAYERS ----
+var newPlayerPhotoData = '';
+
+function readAndResizeImage(file, maxDim, cb) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var img = new Image();
+    img.onload = function() {
+      var w = img.width, h = img.height;
+      if (w > h) { if (w > maxDim) { h = Math.round(h * maxDim / w); w = maxDim; } }
+      else { if (h > maxDim) { w = Math.round(w * maxDim / h); h = maxDim; } }
+      var canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      cb(canvas.toDataURL('image/jpeg', 0.82));
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function previewNewPlayerPhoto(input) {
+  var file = input.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) { alert('Image too large — please choose a photo under 2MB.'); input.value = ''; return; }
+  readAndResizeImage(file, 300, function(dataUrl) {
+    newPlayerPhotoData = dataUrl;
+    var img = document.getElementById('new-p-photo-preview');
+    var placeholder = document.getElementById('new-p-photo-placeholder');
+    img.src = dataUrl; img.style.display = 'block';
+    if (placeholder) placeholder.style.display = 'none';
+  });
+}
+
+function handleEditPlayerPhoto(input, i) {
+  var file = input.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) { alert('Image too large — please choose a photo under 2MB.'); input.value = ''; return; }
+  readAndResizeImage(file, 300, function(dataUrl) {
+    updatePlayerPhoto(i, dataUrl);
+  });
+}
+
+function updatePlayerPhoto(i, dataUrl) {
+  var d = getData(); var players = getPlayers();
+  players[i].photo = dataUrl; d.players = players; saveData(d);
+  renderAdminPlayers(); renderPlayersOnSite();
+  toast(dataUrl ? '📸 Player photo updated!' : '🗑 Player photo removed.', dataUrl ? undefined : '#e25555');
+}
+
+function removePlayerPhoto(i) {
+  if (!confirm('Remove this player\'s photo?')) return;
+  updatePlayerPhoto(i, '');
+}
+
+function getPlayers() {
+  var d = getData();
+  if (!d.players) d.players = [
+    {num:5,name:'J. Tony',pos:'Power Forward',height:"5'9\"",status:'Active',ppg:14.2,apg:1.8,rpg:12.1},
+    {num:10,name:'H. Greation',pos:'Point Guard',height:"5'6\"",status:'Active',ppg:16.8,apg:8.7,rpg:3.4},
+    {num:1,name:'T. Odhiambo',pos:'Shooting Guard',height:"5'6\"",status:'Active',ppg:24.7,apg:5.1,rpg:4.2},
+    {num:2,name:'C. Asan',pos:'Shooting Guard',height:"5'4\"",status:'Active',ppg:9.1,apg:4.4,rpg:2.8},
+    {num:6,name:'I. Ouma',pos:'Power Forward',height:"5'9\"",status:'Active',ppg:19.3,apg:2.3,rpg:9.8},
+    {num:3,name:'A. Dickens',pos:'Center',height:"6'0\"",status:'Active',ppg:11.5,apg:3.9,rpg:5.6},
+    {num:7,name:'W. Tunje',pos:'Shooting Guard',height:"5'5\"",status:'Active',ppg:8.4,apg:3.1,rpg:2.2},
+    {num:8,name:'A. Mbogo',pos:'Center',height:"6'0\"",status:'Active',ppg:10.6,apg:1.4,rpg:7.9},
+    {num:9,name:'B. Brivian',pos:'Center',height:"6'0\"",status:'Active',ppg:7.8,apg:1.1,rpg:6.3},
+    {num:34,name:'S. Otieno',pos:'Small Forward',height:"6'5\"",status:'Injured',ppg:0,apg:0,rpg:0},
+  ];
+  return d.players;
+}
+
+function renderAdminPlayers() {
+  var players = getPlayers();
+  var html = '';
+  players.forEach(function(p, i) {
+    var sc = p.status==='Active'?'#5cb85c':p.status==='Injured'?'#e25555':'var(--orange)';
+    var photoThumb = p.photo
+      ? '<img class="admin-photo-thumb" src="'+p.photo+'">'
+      : '<div class="admin-photo-placeholder">👤</div>';
+    var removeBtn = p.photo ? '<button class="admin-photo-remove" onclick="removePlayerPhoto('+i+')">Remove photo</button>' : '';
+    html += '<div class="admin-card"><div class="admin-card-header"><div class="admin-card-title">#'+p.num+' '+p.name+' <span style="color:'+sc+';font-size:12px">● '+p.status+'</span></div><button class="btn-danger" onclick="deletePlayer('+i+')">🗑</button></div>'
+      + '<div class="admin-photo-row">' + photoThumb
+      + '<div class="admin-photo-controls"><div class="admin-label">Player Photo</div>'
+      + '<input type="file" accept="image/*" onchange="handleEditPlayerPhoto(this,'+i+')">' + removeBtn + '</div></div>'
+      + '<div class="admin-row">'
+      + '<div class="admin-field"><div class="admin-label">No.</div><input class="admin-input" type="number" value="'+p.num+'" onchange="updatePlayer('+i+',\'num\',parseInt(this.value))"></div>'
+      + '<div class="admin-field"><div class="admin-label">Name</div><input class="admin-input" value="'+p.name+'" onchange="updatePlayer('+i+',\'name\',this.value)"></div>'
+      + '</div><div class="admin-row">'
+      + '<div class="admin-field"><div class="admin-label">Position</div><select class="admin-input" onchange="updatePlayer('+i+',\'pos\',this.value)"><option'+(p.pos==='Point Guard'?' selected':'')+'>Point Guard</option><option'+(p.pos==='Shooting Guard'?' selected':'')+'>Shooting Guard</option><option'+(p.pos==='Small Forward'?' selected':'')+'>Small Forward</option><option'+(p.pos==='Power Forward'?' selected':'')+'>Power Forward</option><option'+(p.pos==='Center'?' selected':'')+'>Center</option></select></div>'
+      + '<div class="admin-field"><div class="admin-label">Height</div><input class="admin-input" value="'+p.height+'" onchange="updatePlayer('+i+',\'height\',this.value)"></div>'
+      + '</div>'
+      + '<div class="admin-field"><div class="admin-label">Status</div><select class="admin-input" onchange="updatePlayer('+i+',\'status\',this.value)"><option'+(p.status==='Active'?' selected':'')+'>Active</option><option'+(p.status==='Injured'?' selected':'')+'>Injured</option><option'+(p.status==='Suspended'?' selected':'')+'>Suspended</option></select></div>'
+      + '</div><div class="admin-row">'
+      + '<div class="admin-field"><div class="admin-label">PPG</div><input class="admin-input" type="number" step="0.1" value="'+(p.ppg||0)+'" onchange="updatePlayer('+i+',\'ppg\',parseFloat(this.value)||0)"></div>'
+      + '<div class="admin-field"><div class="admin-label">APG</div><input class="admin-input" type="number" step="0.1" value="'+(p.apg||0)+'" onchange="updatePlayer('+i+',\'apg\',parseFloat(this.value)||0)"></div>'
+      + '<div class="admin-field"><div class="admin-label">RPG</div><input class="admin-input" type="number" step="0.1" value="'+(p.rpg||0)+'" onchange="updatePlayer('+i+',\'rpg\',parseFloat(this.value)||0)"></div>'
+      + '</div>';
+  });
+  document.getElementById('admin-players-list').innerHTML = html;
+}
+
+function updatePlayer(i,key,val) {
+  var d=getData(); var players=getPlayers(); players[i][key]=val; d.players=players; saveData(d);
+  toast('✅ Player updated!'); renderPlayersOnSite();
+}
+function deletePlayer(i) {
+  if (!confirm('Remove this player?')) return;
+  var d=getData(); var players=getPlayers(); players.splice(i,1); d.players=players; saveData(d);
+  renderAdminPlayers(); renderPlayersOnSite(); toast('🗑 Player removed.','#e25555');
+}
+function addPlayer() {
+  var num=parseInt(document.getElementById('new-p-num').value);
+  var name=document.getElementById('new-p-name').value.trim();
+  var pos=document.getElementById('new-p-pos').value;
+  var height=document.getElementById('new-p-height').value.trim();
+  var status=document.getElementById('new-p-status').value;
+  var ppg=parseFloat(document.getElementById('new-p-ppg').value)||0;
+  var apg=parseFloat(document.getElementById('new-p-apg').value)||0;
+  var rpg=parseFloat(document.getElementById('new-p-rpg').value)||0;
+  if (!name||!num) { alert('Please enter number and name.'); return; }
+  var d=getData(); var players=getPlayers();
+  players.push({num,name,pos,height:height||"N/A",status,ppg,apg,rpg,photo:newPlayerPhotoData||''});
+  d.players=players; saveData(d);
+  document.getElementById('new-p-num').value='';
+  document.getElementById('new-p-name').value='';
+  document.getElementById('new-p-height').value='';
+  document.getElementById('new-p-ppg').value='';
+  document.getElementById('new-p-apg').value='';
+  document.getElementById('new-p-rpg').value='';
+  document.getElementById('new-p-photo').value='';
+  document.getElementById('new-p-photo-preview').style.display='none';
+  document.getElementById('new-p-photo-placeholder').style.display='flex';
+  newPlayerPhotoData='';
+  renderAdminPlayers(); renderPlayersOnSite(); toast('✅ Player added!');
+}
+
+function renderPlayersOnSite() {
+  var players = getPlayers();
+  var tbody = document.querySelector('#page-teams .standings-table tbody');
+  if (tbody) {
+    tbody.innerHTML = players.map(function(p) {
+      var sc = p.status==='Active'?'badge-win':p.status==='Injured'?'':'badge-upcoming';
+      var badgeStyle = p.status==='Injured' ? 'style="background:rgba(204,0,0,0.15);color:#FF2222"' : '';
+      return '<tr><td class="rank" style="color:var(--orange)">' + p.num + '</td><td style="color:var(--orange)">' + p.name + '</td><td style="color:var(--orange)">' + p.pos + '</td><td style="color:var(--orange)">' + p.height + '</td><td><span class="badge ' + sc + '" ' + badgeStyle + '>' + p.status + '</span></td></tr>';
+    }).join('');
+  }
+
+  var grid = document.getElementById('players-grid');
+  if (grid) {
+    var avatarColors = ['#CC5A1E','#2D6FA8','#2E8B57','#7B4FA6','#B8860B','#3C8DAD','#C0392B','#4A6FA5'];
+    grid.innerHTML = players.map(function(p, i) {
+      var initials = p.name.split(' ').map(function(w){return w[0]||'';}).join('').slice(0,2).toUpperCase();
+      var color = avatarColors[i % avatarColors.length];
+      var avatarInner = p.photo ? '<img src="' + p.photo + '" alt="' + p.name + '">' : initials;
+      var avatarBg = p.photo ? 'transparent' : color;
+      return '<div class="player-card">'
+        + '<div class="player-avatar" style="background:' + avatarBg + '">' + avatarInner + '</div>'
+        + '<div class="player-card-name">' + p.name + '</div>'
+        + '<div class="player-card-pos">' + p.pos + '</div>'
+        + '<div class="player-card-num">#' + p.num + '</div>'
+        + '</div>';
+    }).join('');
+  }
+}
+
+// ---- NEWS (legacy - kept for backward compat) ----
+function loadNewsAdmin() {
+  var d = getData();
+  if (d.newsTitle) { var el = document.getElementById('news-title-input'); if(el) el.value = d.newsTitle; }
+  if (d.newsCat) { var el = document.getElementById('news-cat-input'); if(el) el.value = d.newsCat; }
+  // Also load into the Games > Headlines sub-panel
+  if (d.newsTitle) { var el2 = document.getElementById('news-title-input2'); if(el2) el2.value = d.newsTitle; }
+  if (d.newsCat) { var el2 = document.getElementById('news-cat-input2'); if(el2) el2.value = d.newsCat; }
+}
+function saveNews() {
+  var d = getData();
+  d.newsTitle = (document.getElementById('news-title-input')||{}).value||'';
+  d.newsCat = (document.getElementById('news-cat-input')||{}).value||'';
+  saveData(d);
+  applyHeadlineToSite(d);
+  toast('✅ Headline updated!');
+}
+function saveNewsFromGames() {
+  var d = getData();
+  d.newsTitle = document.getElementById('news-title-input2').value.trim();
+  d.newsCat = document.getElementById('news-cat-input2').value;
+  saveData(d);
+  applyHeadlineToSite(d);
+  toast('✅ Headline updated!');
+}
+function applyHeadlineToSite(d) {
+  var titleEl = document.getElementById('home-news-title');
+  if (titleEl && d.newsTitle) titleEl.textContent = d.newsTitle;
+  var catEl = document.getElementById('home-news-cat');
+  if (catEl && d.newsCat) catEl.textContent = d.newsCat;
+}
+
+// ---- GAME SUB-TABS ----
+function switchGameTab(tab, btn) {
+  ['upcoming','schedule','live','recap','headlines'].forEach(function(t) {
+    var el = document.getElementById('gtab-' + t);
+    if (el) el.style.display = t === tab ? 'block' : 'none';
+    var b = document.getElementById('gtab-btn-' + t);
+    if (b) b.classList.toggle('active', t === tab);
+  });
+}
+
+// ---- COMING SOON ----
+function toggleComingSoon() {
+  var d = getData();
+  d.comingSoon = !d.comingSoon;
+  saveData(d);
+  applyComingSoonToggle(d.comingSoon);
+  renderHomeUpcoming();
+  toast(d.comingSoon ? '🚫 Coming Soon mode ON' : '✅ Fixtures visible again');
+}
+function applyComingSoonToggle(on) {
+  var toggle = document.getElementById('coming-soon-toggle');
+  var knob = document.getElementById('coming-soon-knob');
+  var msgRow = document.getElementById('coming-soon-msg-row');
+  if (!toggle) return;
+  toggle.style.background = on ? 'var(--orange)' : 'var(--mid)';
+  knob.style.left = on ? '27px' : '3px';
+  knob.style.background = on ? '#fff' : 'var(--steel)';
+  if (msgRow) msgRow.style.display = on ? 'block' : 'none';
+}
+function saveComingSoon() {
+  var d = getData();
+  d.comingSoonMsg = document.getElementById('coming-soon-msg').value.trim();
+  saveData(d);
+  renderHomeUpcoming();
+  toast('✅ Message saved!');
+}
+
+// ---- UPCOMING GAMES (admin) ----
+function getUpcomingGames() {
+  var d = getData();
+  if (!d.upcomingGames) d.upcomingGames = [
+    {home:'Maweni Hornets', away:'Nairobi Hawks', date:'Sat, Jun 28', time:'7:00 PM', venue:'Nyayo Stadium, Nairobi'},
+    {home:'Maweni Hornets', away:'Mombasa Lions', date:'Wed, Jul 2', time:'', venue:'Away · Mombasa Sports Club'},
+    {home:'Kisumu Thunder', away:'Maweni Hornets', date:'Sat, Jul 5', time:'', venue:'Away · Kisumu Arena'},
+  ];
+  return d.upcomingGames;
+}
+function renderAdminUpcoming() {
+  var games = getUpcomingGames();
+  var html = '';
+  if (!games.length) {
+    html = '<div style="color:var(--steel);font-size:13px;margin-bottom:12px;">No upcoming games. Add one below.</div>';
+  }
+  games.forEach(function(g, i) {
+    html += '<div class="admin-card" style="margin-bottom:8px;">'
+      + '<div class="admin-card-header"><div class="admin-card-title" style="font-size:13px;color:var(--orange-light);">' + g.home + ' vs ' + g.away + ' · ' + g.date + '</div>'
+      + '<button class="btn-danger" onclick="deleteUpcomingGame(' + i + ')">🗑</button></div>'
+      + '<div class="admin-row">'
+      + '<div class="admin-field"><div class="admin-label">Home</div><input class="admin-input" value="' + g.home + '" onchange="updateUpcoming(' + i + ',\'home\',this.value)"></div>'
+      + '<div class="admin-field"><div class="admin-label">Away</div><input class="admin-input" value="' + g.away + '" onchange="updateUpcoming(' + i + ',\'away\',this.value)"></div>'
+      + '</div><div class="admin-row">'
+      + '<div class="admin-field"><div class="admin-label">Date</div><input class="admin-input" value="' + g.date + '" onchange="updateUpcoming(' + i + ',\'date\',this.value)"></div>'
+      + '<div class="admin-field"><div class="admin-label">Time</div><input class="admin-input" value="' + (g.time||'') + '" onchange="updateUpcoming(' + i + ',\'time\',this.value)"></div>'
+      + '</div>'
+      + '<div class="admin-field"><div class="admin-label">Venue</div><input class="admin-input" value="' + g.venue + '" onchange="updateUpcoming(' + i + ',\'venue\',this.value)"></div>'
+      + '</div>';
+  });
+  var el = document.getElementById('admin-upcoming-list');
+  if (el) el.innerHTML = html;
+}
+function updateUpcoming(i, key, val) {
+  var d = getData(); var games = getUpcomingGames();
+  games[i][key] = val; d.upcomingGames = games; saveData(d);
+  renderHomeUpcoming(); toast('✅ Updated!');
+}
+function deleteUpcomingGame(i) {
+  if (!confirm('Remove this game?')) return;
+  var d = getData(); var games = getUpcomingGames();
+  games.splice(i, 1); d.upcomingGames = games; saveData(d);
+  renderAdminUpcoming(); renderHomeUpcoming(); toast('🗑 Removed.', '#e25555');
+}
+function addUpcomingGame() {
+  var home = document.getElementById('ug-home').value.trim();
+  var away = document.getElementById('ug-away').value.trim();
+  var dateVal = document.getElementById('ug-date').value;
+  var time = document.getElementById('ug-time').value.trim();
+  var venue = document.getElementById('ug-venue').value.trim();
+  if (!home || !away) { alert('Please enter both teams.'); return; }
+  var dateLabel = dateVal ? new Date(dateVal).toLocaleDateString('en-GB',{weekday:'short',month:'short',day:'numeric'}) : 'TBD';
+  var d = getData(); var games = getUpcomingGames();
+  games.push({home, away, date:dateLabel, time, venue:venue||'TBD'});
+  d.upcomingGames = games; saveData(d);
+  ['ug-home','ug-away','ug-date','ug-time','ug-venue'].forEach(function(id){ document.getElementById(id).value=''; });
+  renderAdminUpcoming(); renderHomeUpcoming(); toast('✅ Game added!');
+}
+function renderHomeUpcoming() {
+  var el = document.getElementById('home-upcoming-games');
+  if (!el) return;
+  var d = getData();
+  if (d.comingSoon) {
+    var msg = d.comingSoonMsg || 'Next fixtures will be announced soon — stay tuned!';
+    el.innerHTML = '<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px 24px;text-align:center;">'
+      + '<div style="font-size:32px;margin-bottom:10px;">🏀</div>'
+      + '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:22px;letter-spacing:2px;color:var(--orange);margin-bottom:8px;">COMING SOON</div>'
+      + '<div style="font-size:13px;color:var(--steel);">' + msg + '</div>'
+      + '</div>';
+    return;
+  }
+  var games = getUpcomingGames();
+  if (!games.length) {
+    el.innerHTML = '<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px 24px;text-align:center;">'
+      + '<div style="font-size:32px;margin-bottom:10px;">📅</div>'
+      + '<div style="font-size:14px;color:var(--steel);">No upcoming games scheduled yet.</div>'
+      + '</div>';
+    return;
+  }
+  el.innerHTML = '<div class="games-list">' + games.map(function(g) {
+    var timeStr = g.time ? ' · ' + g.time : '';
+    return '<div class="game-row">'
+      + '<div><div class="game-teams">' + g.home + ' <span class="game-vs">vs</span> ' + g.away + '</div>'
+      + '<div style="font-size:11px;color:var(--steel);margin-top:2px;">' + g.venue + timeStr + '</div></div>'
+      + '<div class="game-info"><div class="game-date">' + g.date + '</div>'
+      + '<div style="margin-top:2px"><span class="badge badge-upcoming">Upcoming</span></div></div>'
+      + '</div>';
+  }).join('') + '</div>';
+}
+
+// ---- LIVE SCORE ----
+function loadLiveScoreAdmin() {
+  var d = getData();
+  var ls = d.liveScore || {};
+  if (document.getElementById('live-home-abbr')) {
+    document.getElementById('live-home-abbr').value = ls.homeAbbr || 'MHB';
+    document.getElementById('live-away-abbr').value = ls.awayAbbr || 'NRB';
+    document.getElementById('live-score1').value = ls.score1 !== undefined ? ls.score1 : '';
+    document.getElementById('live-score2').value = ls.score2 !== undefined ? ls.score2 : '';
+    document.getElementById('live-period').value = ls.period || '';
+    document.getElementById('live-badge').value = ls.badge || 'LIVE';
+  }
+  applyLiveToggle(d.liveScoreOn);
+}
+function toggleLiveScore() {
+  var d = getData();
+  d.liveScoreOn = !d.liveScoreOn;
+  saveData(d);
+  applyLiveToggle(d.liveScoreOn);
+  applyLiveScoreToSite(d.liveScore, d.liveScoreOn);
+  toast(d.liveScoreOn ? '🔴 Live score visible!' : '✅ Live banner hidden');
+}
+function applyLiveToggle(on) {
+  var toggle = document.getElementById('live-score-toggle');
+  var knob = document.getElementById('live-score-knob');
+  if (!toggle) return;
+  toggle.style.background = on ? 'var(--orange)' : 'var(--mid)';
+  knob.style.left = on ? '27px' : '3px';
+  knob.style.background = on ? '#fff' : 'var(--steel)';
+}
+function saveLiveScore() {
+  var d = getData();
+  d.liveScore = {
+    homeAbbr: document.getElementById('live-home-abbr').value.trim() || 'MHB',
+    awayAbbr: document.getElementById('live-away-abbr').value.trim() || 'NRB',
+    score1: document.getElementById('live-score1').value,
+    score2: document.getElementById('live-score2').value,
+    period: document.getElementById('live-period').value.trim(),
+    badge: document.getElementById('live-badge').value,
+  };
+  saveData(d);
+  applyLiveScoreToSite(d.liveScore, d.liveScoreOn);
+  toast('✅ Live score updated!');
+}
+function applyLiveScoreToSite(ls, on) {
+  var banner = document.getElementById('liveGame');
+  if (!banner) return;
+  if (!ls) return;
+  if (document.getElementById('live-home-display')) document.getElementById('live-home-display').textContent = ls.homeAbbr || 'MHB';
+  if (document.getElementById('live-away-display')) document.getElementById('live-away-display').textContent = ls.awayAbbr || 'NRB';
+  if (document.getElementById('score1')) document.getElementById('score1').textContent = ls.score1 !== '' ? ls.score1 : '0';
+  if (document.getElementById('score2')) document.getElementById('score2').textContent = ls.score2 !== '' ? ls.score2 : '0';
+  if (document.getElementById('live-period-display')) document.getElementById('live-period-display').textContent = ls.period || '';
+  var badgeEl = document.getElementById('live-badge-display');
+  if (badgeEl) {
+    badgeEl.textContent = ls.badge || 'LIVE';
+    badgeEl.className = 'badge ' + (ls.badge === 'LIVE' ? 'badge-live' : 'badge-upcoming');
+  }
+  banner.style.display = on ? 'flex' : 'none';
+}
+
+// ---- GAME RECAP ----
+function loadRecapAdmin() {
+  var d = getData();
+  var r = d.recap || {};
+  if (document.getElementById('recap-title')) {
+    document.getElementById('recap-title').value = r.title || '';
+    document.getElementById('recap-body').value = r.body || '';
+    document.getElementById('recap-date').value = r.date || '';
+    document.getElementById('recap-result').value = r.result || 'win';
+    document.getElementById('recap-score').value = r.score || '';
+  }
+}
+function saveRecap() {
+  var d = getData();
+  d.recap = {
+    title: document.getElementById('recap-title').value.trim(),
+    body: document.getElementById('recap-body').value.trim(),
+    date: document.getElementById('recap-date').value.trim(),
+    result: document.getElementById('recap-result').value,
+    score: document.getElementById('recap-score').value.trim(),
+  };
+  saveData(d);
+  applyRecapToSite(d.recap);
+  toast('✅ Recap saved!');
+}
+function clearRecap() {
+  if (!confirm('Clear the game recap?')) return;
+  var d = getData(); d.recap = null; saveData(d);
+  loadRecapAdmin(); applyRecapToSite(null); toast('🗑 Recap cleared.', '#e25555');
+}
+function applyRecapToSite(r) {
+  var card = document.getElementById('home-recap-card');
+  if (!card) return;
+  if (!r || !r.title) { card.style.display = 'none'; return; }
+  card.style.display = 'flex';
+  var titleEl = document.getElementById('home-news-title');
+  var catEl = document.getElementById('home-news-cat');
+  var dateEl = document.getElementById('home-recap-date');
+  if (titleEl) titleEl.textContent = r.title;
+  if (catEl) catEl.textContent = r.result === 'win' ? '🏆 Win · ' + (r.score || 'Game Recap') : '📋 ' + (r.score || 'Game Recap');
+  if (dateEl) dateEl.textContent = r.date || 'Recent';
+}
+
+// ---- SETTINGS ----
+function loadSettings() {
+  var d = getData();
+  if (d.waNumber) document.getElementById('set-wa').value = d.waNumber;
+  if (d.email) document.getElementById('set-email').value = d.email;
+  if (d.phone) document.getElementById('set-phone').value = d.phone;
+  if (d.till) document.getElementById('set-till').value = d.till;
+  if (d.wins !== undefined) document.getElementById('set-wins').value = d.wins;
+  if (d.losses !== undefined) document.getElementById('set-losses').value = d.losses;
+}
+function saveSettings() {
+  var d = getData();
+  d.waNumber = document.getElementById('set-wa').value.trim();
+  d.email = document.getElementById('set-email').value.trim();
+  d.phone = document.getElementById('set-phone').value.trim();
+  d.till = document.getElementById('set-till').value.trim();
+  d.wins = document.getElementById('set-wins').value;
+  d.losses = document.getElementById('set-losses').value;
+  saveData(d);
+  // Apply till number to modal
+  var tillEl = document.getElementById('mpesa-till');
+  if (tillEl && d.till) tillEl.textContent = d.till.split('').join(' ');
+  toast('✅ Settings saved!');
+}
+function changePassword() {
+  var pw1 = document.getElementById('new-pw').value;
+  var pw2 = document.getElementById('new-pw2').value;
+  if (!pw1) { alert('Please enter a new password.'); return; }
+  if (pw1 !== pw2) { alert('Passwords do not match!'); return; }
+  localStorage.setItem(ADMIN_PW_KEY, pw1);
+  document.getElementById('new-pw').value = '';
+  document.getElementById('new-pw2').value = '';
+  toast('✅ Password changed!');
+}
+
+// Apply saved data on page load
+window.addEventListener('load', function() {
+  var d = getData();
+  if (d.newsTitle) applyHeadlineToSite(d);
+  if (d.till) { var el = document.getElementById('mpesa-till'); if(el) el.textContent = d.till.split('').join(' '); }
+  renderPlayersOnSite();
+  renderGamesOnSite();
+  if (d.products && d.products.length) renderStoreFromData();
+  renderGallery();
+  // New: render home page dynamic sections
+  renderHomeUpcoming();
+  applyLiveScoreToSite(d.liveScore, d.liveScoreOn);
+  if (d.recap) applyRecapToSite(d.recap);
+  else if (!d.newsTitle) { var card = document.getElementById('home-recap-card'); if(card) card.style.display='none'; }
+});
+
+// ---- GALLERY ----
+var lightboxPhotos = [];
+var lightboxIndex = 0;
+var activeGalFilter = 'all';
+
+function getPhotos() {
+  var d = getData();
+  return d.photos || [];
+}
+
+function renderGallery() {
+  var photos = getPhotos();
+  var grid = document.getElementById('gallery-grid');
+  if (!grid) return;
+  var filtered = activeGalFilter === 'all' ? photos : photos.filter(function(p){ return p.cat === activeGalFilter; });
+  lightboxPhotos = filtered;
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="gal-empty"><div class="gal-empty-icon">📸</div><div>No photos yet.</div><div style="margin-top:6px;font-size:12px;">Admin can upload gallery photos from the admin panel.</div></div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(function(p, i) {
+    return '<div class="gal-item" onclick="openLightbox('+i+')">'
+      + '<img src="'+p.url+'" alt="'+p.caption+'" loading="lazy" onerror="this.parentElement.style.display=\'none\'">'
+      + '<div class="gal-overlay"><div class="gal-caption">'+p.caption+'</div></div>'
+      + '</div>';
+  }).join('');
+}
+
+function filterGallery(cat, btn) {
+  activeGalFilter = cat;
+  document.querySelectorAll('.gal-filter').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderGallery();
+}
+
+function openLightbox(i) {
+  lightboxIndex = i;
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function updateLightbox() {
+  var p = lightboxPhotos[lightboxIndex];
+  if (!p) return;
+  document.getElementById('lightbox-img').src = p.url;
+  document.getElementById('lightbox-caption').textContent = p.caption;
+}
+
+function lightboxNav(dir) {
+  lightboxIndex = (lightboxIndex + dir + lightboxPhotos.length) % lightboxPhotos.length;
+  updateLightbox();
+}
+
+document.addEventListener('keydown', function(e) {
+  var lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lightboxNav(-1);
+  if (e.key === 'ArrowRight') lightboxNav(1);
+});
+
+// Admin gallery
+var newGalleryPhotoData = '';
+
+function previewGalleryPhoto(input) {
+  var file = input.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) { alert('Image too large — please choose a photo under 2MB.'); input.value = ''; return; }
+  readAndResizeImage(file, 500, function(dataUrl) {
+    newGalleryPhotoData = dataUrl;
+    var img = document.getElementById('gal-photo-preview');
+    var placeholder = document.getElementById('gal-photo-placeholder');
+    var removeBtn = document.getElementById('gal-photo-remove-btn');
+    img.src = dataUrl; img.style.display = 'block';
+    if (placeholder) placeholder.style.display = 'none';
+    if (removeBtn) removeBtn.style.display = 'block';
+  });
+}
+
+function clearGalleryPhotoSelection() {
+  newGalleryPhotoData = '';
+  document.getElementById('gal-photo-file').value = '';
+  document.getElementById('gal-photo-preview').style.display = 'none';
+  document.getElementById('gal-photo-placeholder').style.display = 'flex';
+  document.getElementById('gal-photo-remove-btn').style.display = 'none';
+}
+
+function addGalleryPhoto() {
+  var caption = document.getElementById('gal-caption').value.trim();
+  var cat = document.getElementById('gal-cat').value;
+  if (!newGalleryPhotoData) { alert('Please choose a photo to upload.'); return; }
+  var d = getData();
+  if (!d.photos) d.photos = [];
+  d.photos.push({ url: newGalleryPhotoData, caption: caption || 'Game Photo', cat: cat });
+  saveData(d);
+  document.getElementById('gal-caption').value = '';
+  clearGalleryPhotoSelection();
+  renderAdminGallery();
+  renderGallery();
+  toast('📸 Photo added!');
+}
+
+function deleteGalleryPhoto(i) {
+  if (!confirm('Remove this photo?')) return;
+  var d = getData();
+  d.photos.splice(i, 1);
+  saveData(d);
+  renderAdminGallery();
+  renderGallery();
+  toast('🗑 Photo removed.', '#e25555');
+}
+
+function renderAdminGallery() {
+  var photos = getPhotos();
+  var el = document.getElementById('admin-gallery-list');
+  if (!el) return;
+  if (!photos.length) {
+    el.innerHTML = '<div style="color:var(--steel);font-size:13px;">No photos yet. Add one above.</div>';
+    return;
+  }
+  el.innerHTML = photos.map(function(p, i) {
+    return '<div style="position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--border);">'
+      + '<img src="'+p.url+'" alt="'+p.caption+'" style="width:100%;height:90px;object-fit:cover;display:block;" onerror="this.style.background=\'#333\'">'
+      + '<div style="padding:6px 8px;background:var(--card);">'
+      + '<div style="font-size:10px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;">'+p.cat+'</div>'
+      + '<div style="font-size:11px;color:var(--chalk);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+p.caption+'</div>'
+      + '</div>'
+      + '<button onclick="deleteGalleryPhoto('+i+')" style="position:absolute;top:5px;right:5px;background:rgba(0,0,0,0.7);border:none;color:white;width:22px;height:22px;border-radius:50%;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>'
+      + '</div>';
+  }).join('');
+}
+
+
+
+
+// ---- MOBILE MENU ----
+function toggleMobileMenu() {
+  var btn = document.getElementById('nav-hamburger');
+  var menu = document.getElementById('nav-mobile-menu');
+  var isOpen = menu.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function mobileNav(page) {
+  toggleMobileMenu();
+  showPage(page);
+  // sync active state
+  document.querySelectorAll('.nav-mobile-link').forEach(function(el) {
+    el.classList.remove('active');
+  });
+}
+
+</script>
