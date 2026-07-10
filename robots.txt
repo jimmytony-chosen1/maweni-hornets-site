@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jimmytony-1of1.github.io/maweni-hornets-basketball/sitemap.xml
