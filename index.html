@@ -63,7 +63,7 @@
   .hero { position: relative; background: var(--deep); overflow: hidden; padding: 60px 28px 48px; }
   .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(204,0,0,0.12) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; }
   .hero-accent { position: absolute; top: -80px; right: -80px; width: 360px; height: 360px; border-radius: 50%; border: 60px solid rgba(204,0,0,0.06); pointer-events: none; }
-  .hero-content { position: relative; max-width: 560px; }
+  .hero-content { position: relative; max-width: 560px; z-index: 1; }
   .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
   .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 64px; line-height: 0.95; letter-spacing: 2px; color: var(--chalk); margin-bottom: 16px; }
   .hero-title span { color: var(--orange); }
@@ -473,12 +473,12 @@
         <div class="section-title">Latest Headlines</div>
       </div>
       <div class="news-grid">
-        <div class="news-card" id="home-recap-card" onclick="showPage('news')">
+        <div class="news-card" id="home-recap-card" onclick="showPage('news')" style="display:none">
           <div class="news-img">🏀</div>
           <div class="news-body">
-            <div class="news-cat" id="home-news-cat">Game Recap</div>
-            <div class="news-title" id="home-news-title">Hornets blow past Nairobi Rangers in dominant 112–98 victory</div>
-            <div class="news-date" id="home-recap-date">Today · 3 min read</div>
+            <div class="news-cat" id="home-news-cat"></div>
+            <div class="news-title" id="home-news-title"></div>
+            <div class="news-date" id="home-recap-date"></div>
           </div>
         </div>
       </div>
@@ -492,18 +492,6 @@
       </div>
       <div id="home-upcoming-games">
         <!-- Rendered dynamically by JS -->
-        <div class="game-row">
-          <div class="game-teams">Maweni Hornets <span class="game-vs">vs</span> Nairobi Hawks</div>
-          <div class="game-info"><div class="game-date">Sat, Jun 28</div><div style="margin-top:2px"><span class="badge badge-upcoming">Upcoming</span></div></div>
-        </div>
-        <div class="game-row">
-          <div class="game-teams">Maweni Hornets <span class="game-vs">vs</span> Mombasa Lions</div>
-          <div class="game-info"><div class="game-date">Wed, Jul 2</div><div style="margin-top:2px"><span class="badge badge-upcoming">Away</span></div></div>
-        </div>
-        <div class="game-row">
-          <div class="game-teams">Kisumu Thunder <span class="game-vs">vs</span> Maweni Hornets</div>
-          <div class="game-info"><div class="game-date">Sat, Jul 5</div><div style="margin-top:2px"><span class="badge badge-upcoming">Away</span></div></div>
-        </div>
       </div>
     </div>
   </div>
@@ -513,34 +501,7 @@
     <div class="section">
       <div class="section-header"><div class="section-title">Schedule & Results</div></div>
       <div class="games-list">
-        <div class="game-row">
-          <div><div class="game-teams">Hornets vs Rangers</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Nyayo Stadium, Nairobi</div></div>
-          <div class="game-info"><div class="game-date">Jun 22</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
-        </div>
-        <div class="game-row">
-          <div><div class="game-teams">Hornets vs Nakuru Stallions</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Nyayo Stadium, Nairobi</div></div>
-          <div class="game-info"><div class="game-date">Jun 15</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
-        </div>
-        <div class="game-row">
-          <div><div class="game-teams">Eldoret Raptors vs Hornets</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Moi Sports Centre, Eldoret</div></div>
-          <div class="game-info"><div class="game-date">Jun 8</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
-        </div>
-        <div class="game-row" style="border-color:var(--orange)">
-          <div><div class="game-teams" style="color:var(--orange)">Hornets vs Nairobi Hawks</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Nyayo Stadium, Nairobi · 7:00 PM</div></div>
-          <div class="game-info"><div class="game-date">Jun 28</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
-        </div>
-        <div class="game-row">
-          <div><div class="game-teams">Hornets vs Mombasa Lions</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Away · Mombasa Sports Club</div></div>
-          <div class="game-info"><div class="game-date">Jul 2</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
-        </div>
-        <div class="game-row">
-          <div><div class="game-teams">Kisumu Thunder vs Hornets</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Away · Kisumu Arena</div></div>
-          <div class="game-info"><div class="game-date">Jul 5</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
-        </div>
-        <div class="game-row">
-          <div><div class="game-teams">Hornets vs Thika Cobras</div><div style="font-size:12px;color:var(--steel);margin-top:2px">Nyayo Stadium, Nairobi · 6:30 PM</div></div>
-          <div class="game-info"><div class="game-date">Jul 12</div><div style="margin-top:2px"><span class="badge badge-upcoming">Coming Soon</span></div></div>
-        </div>
+        <!-- Rendered dynamically by JS from admin data -->
       </div>
     </div>
   </div>
@@ -564,8 +525,8 @@
       </div>
       <div class="section-header"><div class="section-title" style="font-size:18px">Coaching Staff</div></div>
       <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
-        <div class="game-row"><div><div style="font-weight:600">Coach Cyrus Barongo</div><div style="font-size:12px;color:var(--orange);margin-top:2px">Head Coach</div></div><span class="badge badge-upcoming">Head Coach</span></div>
-        <div class="game-row"><div><div style="font-weight:600">Coach Paul Mukhwana</div><div style="font-size:12px;color:var(--orange);margin-top:2px">Assistant Coach</div></div><span class="badge" style="background:rgba(138,155,176,0.15);color:var(--orange)">Assistant</span></div>
+        <div class="game-row"><div><div style="font-weight:600">Coach Paul Mukhwana</div><div style="font-size:12px;color:var(--orange);margin-top:2px">Head Coach</div></div><span class="badge badge-upcoming">Head Coach</span></div>
+        <div class="game-row"><div><div style="font-weight:600">Cyrus Barongo</div><div style="font-size:12px;color:var(--orange);margin-top:2px">Assistant Coach</div></div><span class="badge" style="background:rgba(138,155,176,0.15);color:var(--orange)">Assistant</span></div>
              </div>
       <div class="section-header"><div class="section-title" style="font-size:18px">Full Roster</div></div>
       <table class="standings-table">
@@ -769,6 +730,7 @@
         </div>
       </div>
       <div class="gallery-filters">
+        <button class="gal-filter active" onclick="filterGallery('all',this)">All</button>
         <button class="gal-filter" onclick="filterGallery('games',this)">🏀 Games</button>
         <button class="gal-filter" onclick="filterGallery('training',this)">💪 Training</button>
         <button class="gal-filter" onclick="filterGallery('team',this)">👥 Team</button>
@@ -1741,12 +1703,7 @@ function renderStoreFromData() {
 // ---- GAMES ----
 function getGames() {
   var d = getData();
-  if (!d.games) d.games = [
-    {home:'Hornets vs Rangers', venue:'Nyayo Stadium, Nairobi', date:'Jun 22', status:'win', score:'112 – 98'},
-    {home:'Hornets vs Nakuru Stallions', venue:'Nyayo Stadium, Nairobi', date:'Jun 15', status:'loss', score:'88 – 95'},
-    {home:'Hornets vs Nairobi Hawks', venue:'Nyayo Stadium, Nairobi · 7:00 PM', date:'Jun 28', status:'upcoming', score:''},
-    {home:'Hornets vs Mombasa Lions', venue:'Away · Mombasa Sports Club', date:'Jul 2', status:'upcoming', score:''},
-  ];
+  if (!d.games) d.games = [];
   return d.games;
 }
 
@@ -2011,6 +1968,8 @@ function applyHeadlineToSite(d) {
   if (titleEl && d.newsTitle) titleEl.textContent = d.newsTitle;
   var catEl = document.getElementById('home-news-cat');
   if (catEl && d.newsCat) catEl.textContent = d.newsCat;
+  var card = document.getElementById('home-recap-card');
+  if (card && d.newsTitle) card.style.display = 'flex';
 }
 
 // ---- GAME SUB-TABS ----
@@ -2053,11 +2012,7 @@ function saveComingSoon() {
 // ---- UPCOMING GAMES (admin) ----
 function getUpcomingGames() {
   var d = getData();
-  if (!d.upcomingGames) d.upcomingGames = [
-    {home:'Maweni Hornets', away:'Nairobi Hawks', date:'Sat, Jun 28', time:'7:00 PM', venue:'Nyayo Stadium, Nairobi'},
-    {home:'Maweni Hornets', away:'Mombasa Lions', date:'Wed, Jul 2', time:'', venue:'Away · Mombasa Sports Club'},
-    {home:'Kisumu Thunder', away:'Maweni Hornets', date:'Sat, Jul 5', time:'', venue:'Away · Kisumu Arena'},
-  ];
+  if (!d.upcomingGames) d.upcomingGames = [];
   return d.upcomingGames;
 }
 function renderAdminUpcoming() {
@@ -2468,5 +2423,3 @@ function mobileNav(page) {
 }
 
 </script>
-   
-
